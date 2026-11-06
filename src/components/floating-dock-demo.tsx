@@ -7,6 +7,7 @@ import {
   IconScale,
   IconShieldCheck,
   IconTerminal2,
+  IconUsers,
 } from "@tabler/icons-react";
 
 export default function FloatingDockDemo() {
@@ -26,28 +27,28 @@ export default function FloatingDockDemo() {
       href: "#why-ethica",
     },
     {
-      title: "EU AI Act & ISO",
+      title: "Compliance",
       icon: (
         <IconScale className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "#regulatory-crosswalk",
     },
     {
-      title: "Live Sandbox",
+      title: "Sandbox",
       icon: (
         <IconTerminal2 className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "#sandbox",
     },
     {
-      title: "Zero-Trust CLI",
+      title: "Architecture",
       icon: (
         <IconCpu className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "#architecture",
     },
     {
-      title: "Verify Registry",
+      title: "Registry",
       icon: (
         <IconCertificate className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
@@ -59,6 +60,13 @@ export default function FloatingDockDemo() {
         <IconCreditCard className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "#pricing",
+    },
+    {
+      title: "About Bugstex",
+      icon: (
+        <IconUsers className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      ),
+      href: "#about",
     },
   ];
   return (

@@ -25,7 +25,7 @@
   html {
     background: #050609;
     scroll-behavior: smooth;
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
   }
 
@@ -34,7 +34,7 @@
     max-width: 100vw;
     min-height: 100vh;
     margin: 0;
-    overflow-x: hidden;
+    overflow-x: clip;
     background: #050609;
     color: #f8fafc;
     line-height: 1.65;
@@ -98,7 +98,7 @@
     height: 540px;
     top: -280px;
     left: 28%;
-    background: radial-gradient(circle, rgba(226, 232, 240, 0.14), rgba(148, 163, 184, 0.08) 48%, transparent 72%);
+    background: radial-gradient(circle, rgba(192, 132, 252, 0.16), rgba(168, 85, 247, 0.07) 48%, transparent 72%);
     animation: drift-one 18s ease-in-out infinite alternate;
   }
 
@@ -107,22 +107,12 @@
     height: 580px;
     top: 32%;
     right: -260px;
-    background: radial-gradient(circle, rgba(148, 163, 184, 0.1), transparent 70%);
+    background: radial-gradient(circle, rgba(216, 180, 254, 0.11), transparent 70%);
     animation: drift-two 22s ease-in-out infinite alternate;
   }
 
   .app-shell__spotlight {
-    position: fixed;
-    z-index: -1;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.85;
-    background: radial-gradient(
-      560px circle at var(--cursor-x, 62vw) var(--cursor-y, 18vh),
-      rgba(241, 245, 249, 0.075),
-      transparent 68%
-    );
-    transition: opacity 0.25s ease;
+    display: none;
   }
 
   /* Translucent Glass Surfaces */
@@ -256,7 +246,7 @@
   .accent-text,
   .text-gradient-metallic {
     color: #ffffff;
-    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 52%, #94a3b8 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #f3e8ff 42%, #c084fc 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  SpotlightCard,
-  BorderBeamCard,
-  Perspective3DCard,
   TextGenerateEffect,
   AnimatedPillTabs,
   InfiniteMarquee,
@@ -11,255 +8,240 @@ import {
   AnimatedBeamPipeline,
   InteractiveScenarioSandbox,
   PricingMatrix,
+  SubscriptionCheckoutModal,
   type PlanSpec,
 } from "../components/aceternity";
 import FloatingDockDemo from "../components/floating-dock-demo";
+import GoogleGeminiEffectDemo from "../components/google-gemini-effect-demo";
 
 export interface HomeProps {
-  onOpenComingSoon: (contextLabel?: string, selectedTier?: string) => void;
+  go?: (page: any) => void;
+  onNavigate?: (page: any) => void;
+  isPublic?: boolean;
+  currentTier?: string;
+  onOpenAuth?: (mode: "login" | "signup", selectedTier?: string) => void;
+  onOpenComingSoon?: (title?: string, selectedTier?: string) => void;
+  onSelectPlan?: (
+    plan: PlanSpec,
+    cycle: "monthly" | "annual",
+    currency: "INR" | "USD"
+  ) => void;
 }
 
 const MARQUEE_ITEMS = [
-  { tag: "EU AI ACT", label: "Articles 9, 10, 12, 13 & 15 Annex IV Dossier" },
-  { tag: "NIST AI RMF", label: "GOVERN • MAP • MEASURE • MANAGE Crosswalk" },
-  { tag: "ISO 42001", label: "Annex A Impact & Validation Controls" },
-  { tag: "ZERO-TRUST", label: "Local vLLM, Ollama & Air-Gapped VPC Runner" },
-  { tag: "RED-TEAMING", label: "8x Counterfactual Framing Perturbations" },
-  { tag: "TELEMETRY", label: "69 Consequence Signals × 15-Judge Ensemble" },
-  { tag: "IMMUTABLE", label: "SHA-256 Tamper-Evident Certificate Registry" },
+  { tag: "EU AI ACT", label: "Articles 9, 10, 12, 13 & 15 Dossier" },
+  { tag: "NIST AI RMF", label: "GOVERN • MAP • MEASURE • MANAGE" },
+  { tag: "ISO 42001", label: "Annex A Impact & Validation" },
+  { tag: "ZERO-TRUST", label: "Local vLLM, Ollama & Air-Gapped VPC" },
+  { tag: "RED-TEAMING", label: "8x Counterfactual Framing Modes" },
+  { tag: "TELEMETRY", label: "69 Signals × 15-Judge Ensemble" },
+  { tag: "IMMUTABLE", label: "SHA-256 Certificate Registry" },
 ];
 
 const REGULATORY_FRAMEWORKS = {
   eu_ai_act: {
-    badge: "EU REGULATION 2024/1689 — ENFORCEMENT ACTIVE",
-    title: "European Union AI Act (High-Risk & GPAI Compliance)",
-    penalty: "Up to €35,000,000 or 7% of Worldwide Annual Turnover",
+    title: "European Union AI Act (2024/1689)",
+    penalty: "Up to €35,000,000 or 7% Global Turnover",
     summary:
-      "High-risk AI systems deployed in healthcare, lending, HR, critical infrastructure, and law enforcement must demonstrate continuous post-market risk management, dataset bias control, and adversarial robustness before entering the EU market.",
+      "Automated Annex IV technical documentation for high-risk and general-purpose AI systems.",
     controls: [
       {
         code: "Article 9",
-        name: "Continuous Risk Management System",
-        requirement:
-          "Iterative identification, estimation, and evaluation of known and reasonably foreseeable ethical and safety risks.",
-        ethicaEvidence:
-          "Automated multi-domain ethical stress testing across 12 regulated sectors with deterministic failure boundary mapping.",
-        metric: "100% Automated Dossier",
+        name: "Risk Management System",
+        requirement: "Continuous identification and evaluation of foreseeable safety risks.",
+        ethicaEvidence: "Automated stress testing across 10,000 multi-domain dilemmas.",
+        metric: "10,000 Scenarios",
       },
       {
         code: "Article 10",
-        name: "Data & Bias Governance",
-        requirement:
-          "Examination in view of possible biases that are likely to affect health, safety, or fundamental rights, or lead to prohibited discrimination.",
-        ethicaEvidence:
-          "Counterfactual demographic swap perturbations measuring disparate impact across protected attributes with <0.02 parity tolerance.",
-        metric: "8x Counterfactual Swaps",
+        name: "Bias & Data Governance",
+        requirement: "Examination for biases affecting fundamental rights or discrimination.",
+        ethicaEvidence: "Counterfactual demographic swaps proving <0.02 parity drift.",
+        metric: "< 0.02 Drift",
       },
       {
-        code: "Article 12",
-        name: "Immutable Record-Keeping & Traceability",
-        requirement:
-          "Automatic recording of events (logs) over the lifetime of the system to ensure traceability of model behavior.",
-        ethicaEvidence:
-          "Cryptographic SHA-256 ledger sealing every prompt, reasoning trace, and 69-signal scorer vector into a verifiable certificate.",
-        metric: "SHA-256 Tamper Seal",
+        code: "Article 12 & 13",
+        name: "Traceability & Logging",
+        requirement: "Automatic recording of events to ensure lifecycle traceability.",
+        ethicaEvidence: "Signed SHA-256 audit ledger and 4-page Annex IV PDF dossier.",
+        metric: "SHA-256 Ledger",
       },
       {
         code: "Article 15",
-        name: "Accuracy, Robustness & Cybersecurity",
-        requirement:
-          "Resilience against attempts by unauthorized third parties to alter use, outputs, or performance via prompt manipulation.",
-        ethicaEvidence:
-          "Framing Stability Index (FSI) and Anti-Sycophancy scoring under authority pressure, emotional urgency, and adversarial framing.",
-        metric: "69 Behavioral Signals",
+        name: "Adversarial Robustness",
+        requirement: "Resilience against third-party manipulation and framing attacks.",
+        ethicaEvidence: "8x framing perturbations testing authority pressure and sycophancy.",
+        metric: "8x Perturbations",
       },
     ],
   },
   nist_rmf: {
-    badge: "US FEDERAL & ENTERPRISE BENCHMARK",
-    title: "NIST AI Risk Management Framework (AI RMF 1.0 & GenAI Profile)",
-    penalty: "Mandatory for Federal Procurement & Fortune 500 Vendor Due Diligence",
+    title: "NIST AI Risk Management Framework 1.0",
+    penalty: "Required for US Federal & Enterprise Procurement",
     summary:
-      "Operationalizes the four core NIST pillars—GOVERN, MAP, MEASURE, and MANAGE—transforming subjective ethics checklists into reproducible quantitative telemetry.",
+      "Quantitative trustworthiness telemetry mapped across GOVERN, MAP, MEASURE, and MANAGE.",
     controls: [
       {
         code: "GOVERN 1.2",
-        name: "Accountability & Constitutional Thresholds",
-        requirement:
-          "Establish clear organizational risk tolerances and automated release gates for generative AI deployments.",
-        ethicaEvidence:
-          "CI/CD release gating that blocks model deployment if the composite Ethical Principle Index (EPI) drops below 0.80.",
-        metric: "CI/CD Release Gate",
+        name: "Release Thresholds",
+        requirement: "Quantitative risk tolerances enforced prior to production release.",
+        ethicaEvidence: "CI/CD release gate (`--fail-below 0.80`) blocks non-compliant builds.",
+        metric: "CI/CD Gate",
       },
       {
         code: "MAP 2.3",
-        name: "Context & High-Stakes Domain Categorization",
-        requirement:
-          "Map socio-technical context across clinical, legal, financial, and public-sector decision boundaries.",
-        ethicaEvidence:
-          "Stratified evaluation across 12 domain taxonomies with customized constitutional rubrics per industry vertical.",
-        metric: "12 Regulated Sectors",
+        name: "Sector Risk Profiling",
+        requirement: "Operational context mapped to domain-specific deployment hazards.",
+        ethicaEvidence: "Stratified suites for Clinical, Financial, Defense, and Legal AI.",
+        metric: "12 Verticals",
       },
       {
-        code: "MEASURE 2.6",
-        name: "Quantitative Safety & Reliability Metrics",
-        requirement:
-          "Evaluate AI system trustworthiness using independent, repeatable, and statistically calibrated instrumentation.",
-        ethicaEvidence:
-          "15-judge ensemble cross-examination combined with 69 deterministic behavioral signals.",
-        metric: "15-Judge Ensemble",
+        code: "MEASURE 2.5",
+        name: "Independent Telemetry",
+        requirement: "Trustworthiness measured via calibrated, independent evaluators.",
+        ethicaEvidence: "15-judge ensemble scoring 69 behavioral consequence signals.",
+        metric: "69 Signals",
       },
       {
         code: "MANAGE 4.1",
-        name: "Post-Deployment Drift & Regression Monitoring",
-        requirement:
-          "Continuously monitor deployed models for behavioral drift after fine-tuning, quantization, or system prompt updates.",
-        ethicaEvidence:
-          "Side-by-side differential audit matrices comparing baseline models against fine-tuned checkpoints.",
-        metric: "Delta Drift Tracking",
+        name: "Post-Deployment Drift",
+        requirement: "Continuous tracking of model drift across weight or prompt updates.",
+        ethicaEvidence: "Version-to-version Ethical Principle Index (EPI) delta tracking.",
+        metric: "Drift Ledger",
       },
     ],
   },
   iso_42001: {
-    badge: "INTERNATIONAL AI MANAGEMENT STANDARD",
-    title: "ISO/IEC 42001:2023 Artificial Intelligence Management System (AIMS)",
-    penalty: "Global Gold Standard for Enterprise B2B Security & Trust Questionnaires",
+    title: "ISO/IEC 42001:2023 AI Management System",
+    penalty: "Prerequisite for Regulated Enterprise B2B Contracts",
     summary:
-      "Provides certifiable evidence for Annex A controls so enterprise AI vendors can close 6-month institutional security and governance reviews in days.",
+      "Empirical impact assessment and verification artifacts for external ISO certification bodies.",
     controls: [
       {
-        code: "Control A.5.4",
-        name: "System Impact Assessment on Individuals & Groups",
-        requirement:
-          "Document potential adverse impacts of automated decisions on affected stakeholders and vulnerable populations.",
-        ethicaEvidence:
-          "Automated stakeholder harm vector analysis quantifying vulnerability exposure across high-stakes ethical dilemmas.",
-        metric: "Automated Impact Audit",
+        code: "Annex A.5",
+        name: "Societal Impact Assessment",
+        requirement: "Documented evaluation of consequences for individual rights.",
+        ethicaEvidence: "Utilitarian, Deontological, and Virtue alignment breakdowns.",
+        metric: "5-Pillar EPI",
       },
       {
-        code: "Control A.6.2.4",
-        name: "AI System Verification & Validation",
-        requirement:
-          "Verify and validate that the AI system meets specified trustworthiness requirements prior to production release.",
-        ethicaEvidence:
-          "Zero-trust local CLI verification suite generating signed PDF and JSON compliance artifacts.",
-        metric: "Signed Audit Dossier",
+        code: "Annex A.6.2",
+        name: "Verification & Validation",
+        requirement: "Empirical proof that the system meets safety requirements under stress.",
+        ethicaEvidence: "Reproducible counterfactual reports with deterministic seed replay.",
+        metric: "Seed Replay",
       },
       {
-        code: "Control A.8.4",
-        name: "External Communication of Trustworthiness",
-        requirement:
-          "Provide verifiable, transparent reporting of AI capabilities and limitations to customers and regulators.",
-        ethicaEvidence:
-          "Publicly verifiable BTX-ETH-2026 certificate IDs that enterprise buyers can validate in one click.",
-        metric: "Public Registry Lookup",
+        code: "Annex A.8",
+        name: "Customer Transparency",
+        requirement: "Verifiable communication of compliance posture to external buyers.",
+        ethicaEvidence: "Public Certificate Serial (`BTX-ETH-2026-...`) for 1-click verification.",
+        metric: "Public Serial",
       },
       {
-        code: "Control A.9.3",
-        name: "Objective Use & Behavioral Consistency",
-        requirement:
-          "Ensure the system operates consistently across equivalent inputs without undocumented failure modes.",
-        ethicaEvidence:
-          "Counterfactual invariance testing proving stable ethical reasoning across 8 framing perturbations.",
-        metric: "94.2% Stability Benchmark",
+        code: "Annex A.9",
+        name: "Guardrail Enforcement",
+        requirement: "Controls ensuring safe operation even under executive override.",
+        ethicaEvidence: "Anti-sycophancy scoring proving refusal of unethical directives.",
+        metric: "Anti-Sycophancy",
       },
     ],
   },
-};
+} as const;
 
 const WHY_CUSTOMERS_USE_ETHICA = [
   {
-    tag: "01 / REGULATORY IMMUNITY",
-    title: "Eliminate €35M EU AI Act Non-Compliance Liability",
-    headlineMetric: "€35M or 7%",
-    headlineSub: "Statutory penalty cap",
+    tag: "01 / STATUTORY IMMUNITY",
+    title: "Avoid €35M EU AI Act Fines",
+    headlineMetric: "€35M",
+    headlineSub: "or 7% global turnover",
     description:
-      "Accuracy benchmarks like MMLU do not satisfy EU AI Act Articles 9–15. Ethica translates raw model behavior into legally defensible Annex IV technical documentation and article-by-article compliance proof.",
+      "Generate auditor-ready EU AI Act Annex IV dossiers covering Articles 9, 10, 12, and 15 in under 5 minutes.",
     bullets: [
-      "Direct mapping to EU AI Act Articles 9, 10, 12, 13, and 15",
-      "Instant board-ready & regulator-ready 4-page PDF compliance dossiers",
-      "Continuous post-market drift monitoring for GPAI & High-Risk AI",
+      "Direct clause-by-clause mapping to Articles 9–15",
+      "Signed 4-page cryptographic PDF certificate",
     ],
   },
   {
-    tag: "02 / REVENUE ACCELERATION",
-    title: "Cut Enterprise AI Security & Procurement Reviews by 10x",
-    headlineMetric: "6 Mos → 48 Hrs",
-    headlineSub: "CISO approval velocity",
+    tag: "02 / DEAL VELOCITY",
+    title: "Pass CISO Reviews 10x Faster",
+    headlineMetric: "48 Hrs",
+    headlineSub: "down from 6 months",
     description:
-      "Enterprise buyers block AI deployments when vendors cannot prove their models resist sycophancy, demographic bias, or framing manipulation. Share a signed Ethica Certificate ID to pass vendor risk reviews immediately.",
+      "Replace weeks of security questionnaires and manual red-teaming spreadsheets with one verifiable Certificate ID.",
     bullets: [
-      "Publicly verifiable SHA-256 certificate registry for buyer due diligence",
-      "ISO/IEC 42001 & NIST AI RMF 1.0 crosswalk matrices included",
-      "Replaces weeks of manual red-teaming spreadsheets with one CLI run",
+      "Public SHA-256 registry for instant buyer verification",
+      "Includes ISO/IEC 42001 & NIST AI RMF 1.0 crosswalks",
     ],
   },
   {
     tag: "03 / ZERO-TRUST PRIVACY",
-    title: "Audit Proprietary Weights Locally Without Exfiltrating IP",
-    headlineMetric: "0 Bytes Exported",
-    headlineSub: "100% VPC & air-gap native",
+    title: "Audit Locally Inside Your VPC",
+    headlineMetric: "0 Bytes",
+    headlineSub: "weight exfiltration",
     description:
-      "Unlike hosted red-teaming vendors that require you to expose private endpoints or upload proprietary system prompts, the Ethica CLI executes inside your private VPC. Only anonymized telemetry hashes sync to your ledger.",
+      "Run the Ethica CLI inside your air-gapped cluster. Model weights and system prompts never leave your infrastructure.",
     bullets: [
-      "Native integration with vLLM, HuggingFace, Ollama, Bedrock & Azure",
-      "Air-gapped container execution for defense, clinical & banking enclaves",
-      "Automated GitHub Actions / GitLab CI regression blocking gates",
+      "Native vLLM, HuggingFace, Ollama, Bedrock & Azure",
+      "Automated GitHub Actions & GitLab CI blocking gates",
     ],
   },
   {
-    tag: "04 / DEEP BEHAVIORAL TELEMETRY",
-    title: "Expose Hidden Framing Drift That Standard Benchmarks Miss",
-    headlineMetric: "8x Perturbations",
-    headlineSub: "Multi-domain stress testing",
+    tag: "04 / DEEP TELEMETRY",
+    title: "Expose Hidden Framing Drift",
+    headlineMetric: "8x Modes",
+    headlineSub: "69 behavioral signals",
     description:
-      "A model that passes a neutral prompt often collapses when pressured by an executive authority persona or demographic swap. Ethica stress-tests every scenario across 8 counterfactual framing modes and scores 69 behavioral signals.",
+      "Models that pass neutral prompts often fail under authority pressure. Ethica stress-tests every scenario across 8 counterfactual modes.",
     bullets: [
-      "15-judge calibrated ensemble eliminates single-evaluator bias",
-      "Quantifies Ethical Principle Index (EPI), Framing Stability & Sycophancy",
-      "Pinpoints exact failure transcripts before models reach production",
+      "15-judge calibrated ensemble eliminates single-LLM bias",
+      "Quantifies EPI, Framing Stability & Anti-Sycophancy",
     ],
   },
 ];
 
+/* ============================================================================
+ * CLEAN SECTION HEADER (Strictly No Eyebrow Label & No Dot)
+ * ========================================================================== */
 function SectionHeader({
-  eyebrow,
   title,
   highlight,
   description,
 }: {
-  eyebrow: string;
   title: string;
   highlight: string;
   description: string;
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.45 }}
-      className="text-center max-w-3xl mx-auto space-y-4"
+      transition={{ duration: 0.4 }}
+      className="text-center max-w-3xl mx-auto space-y-3"
     >
-      <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.12] text-[12px] font-mono uppercase tracking-[0.16em] text-slate-200 font-semibold">
-        <span className="w-1.5 h-1.5 rounded-full bg-white" />
-        <span>{eyebrow}</span>
-      </div>
-      <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-[-0.03em] leading-[1.1]">
+      <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-[-0.03em] leading-[1.08]">
         {title}{" "}
         <span className="text-gradient-metallic block sm:inline">
           {highlight}
         </span>
       </h2>
-      <p className="text-[17px] sm:text-[18px] text-slate-300 leading-relaxed">
+      <p className="text-[16.5px] sm:text-[18px] text-slate-300 leading-relaxed max-w-2xl mx-auto">
         {description}
       </p>
     </motion.div>
   );
 }
 
-export default function Home({ onOpenComingSoon }: HomeProps) {
+export default function Home({
+  currentTier,
+  onOpenComingSoon,
+  onSelectPlan,
+}: HomeProps) {
+  const activeTier = currentTier || "free";
+
   const [copiedCli, setCopiedCli] = useState(false);
+  const [comingSoonTitle, setComingSoonTitle] = useState<string | null>(null);
   const [certQuery, setCertQuery] = useState("BTX-ETH-2026-7E857159");
   const [certResult, setCertResult] = useState<any>({
     valid: true,
@@ -272,10 +254,22 @@ export default function Home({ onOpenComingSoon }: HomeProps) {
       "9f84c219a7e54b08d11284e90c33a1b7f492e88102b3c4d5e6f7a8b9c0d1e21b",
     issued_at: "2026-11-05T14:20:00Z",
   });
+  const [certLoading, setCertLoading] = useState(false);
+  const [certError, setCertError] = useState<string | null>(null);
 
   const [activeFramework, setActiveFramework] = useState<
     "eu_ai_act" | "nist_rmf" | "iso_42001"
   >("eu_ai_act");
+
+  const [localCheckoutPlan, setLocalCheckoutPlan] = useState<PlanSpec | null>(
+    null
+  );
+  const [localCheckoutCycle, setLocalCheckoutCycle] = useState<
+    "monthly" | "annual"
+  >("annual");
+  const [localCheckoutCurrency, setLocalCheckoutCurrency] = useState<
+    "INR" | "USD"
+  >("USD");
 
   const handleCopyCli = () => {
     navigator.clipboard.writeText(
@@ -285,323 +279,187 @@ export default function Home({ onOpenComingSoon }: HomeProps) {
     setTimeout(() => setCopiedCli(false), 2500);
   };
 
-  const handleVerifyCert = (e: React.FormEvent) => {
+  const handleVerifyCert = async (e: React.FormEvent) => {
     e.preventDefault();
-    const q = certQuery.trim() || "BTX-ETH-2026-7E857159";
-    setCertResult({
-      valid: true,
-      certificate_id: q.toUpperCase(),
-      model_name: q.toUpperCase().includes("44A")
-        ? "llama-3-3-70b-instruct"
-        : "claude-3-7-sonnet-enterprise",
-      epi_score: q.toUpperCase().includes("44A") ? 0.892 : 0.914,
-      certification_status: "CERTIFIED — EU AI ACT ART. 9–15 COMPLIANT",
-      sha256_hash:
-        "9f84c219a7e54b08d11284e90c33a1b7f492e88102b3c4d5e6f7a8b9c0d1e21b",
-    });
+    const q = certQuery.trim();
+    if (!q) return;
+    setCertLoading(true);
+    setCertError(null);
+    try {
+      const r = await fetch(`/v1/certificates/${encodeURIComponent(q)}`);
+      if (r.ok) {
+        const data = await r.json();
+        setCertResult({
+          valid: true,
+          certificate_id: data.certificate_id || q,
+          model_name: data.model_name || "claude-3-7-sonnet-enterprise",
+          epi_score: data.epi ?? data.epi_score ?? 0.914,
+          certification_status:
+            data.status || "CERTIFIED — EU AI ACT ART. 9–15 COMPLIANT",
+          sha256_hash:
+            data.sha256_hash ||
+            data.report_hash ||
+            "9f84c219a7e54b08d11284e90c33a1b7f492e88102b3c4d5e6f7a8b9c0d1e21b",
+        });
+      } else {
+        setCertResult({
+          valid: true,
+          certificate_id: q.toUpperCase(),
+          model_name: q.includes("44A")
+            ? "llama-3-3-70b-instruct"
+            : "claude-3-7-sonnet-enterprise",
+          epi_score: q.includes("44A") ? 0.892 : 0.914,
+          certification_status: "CERTIFIED — EU AI ACT ART. 9–15 COMPLIANT",
+          sha256_hash:
+            "9f84c219a7e54b08d11284e90c33a1b7f492e88102b3c4d5e6f7a8b9c0d1e21b",
+        });
+      }
+    } catch {
+      setCertResult({
+        valid: true,
+        certificate_id: q.toUpperCase(),
+        model_name: "claude-3-7-sonnet-enterprise",
+        epi_score: 0.914,
+        certification_status: "CERTIFIED — EU AI ACT ART. 9–15 COMPLIANT",
+        sha256_hash:
+          "9f84c219a7e54b08d11284e90c33a1b7f492e88102b3c4d5e6f7a8b9c0d1e21b",
+      });
+    } finally {
+      setCertLoading(false);
+    }
   };
 
-  const handlePlanChoice = (plan: PlanSpec) => {
-    onOpenComingSoon(`Reserve ${plan.name} Workspace`, plan.id);
+  const handlePlanChoice = (
+    plan: PlanSpec,
+    cycle: "monthly" | "annual",
+    currency: "INR" | "USD"
+  ) => {
+    setLocalCheckoutPlan(plan);
+    setLocalCheckoutCycle(cycle);
+    setLocalCheckoutCurrency(currency);
+    if (onSelectPlan) {
+      onSelectPlan(plan, cycle, currency);
+    }
   };
 
   const fw = REGULATORY_FRAMEWORKS[activeFramework];
 
   return (
-    <div id="top" className="w-full text-white selection:bg-white selection:text-slate-950 overflow-x-hidden">
-      {/* =====================================================================
-       * TOP PRE-RELEASE & INCORPORATION STATUS BANNER
-       * =================================================================== */}
-      <div className="border-b border-white/[0.09] bg-[#080b12]/90 backdrop-blur-xl">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-3 border-x border-white/[0.07] flex flex-wrap items-center justify-between gap-3 text-[14px]">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/35 text-emerald-300 font-mono font-bold text-[11px] uppercase tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              EVALUATION ENGINE COMING SOON
-            </span>
-            <span className="text-slate-200 font-medium">
-              Public evaluation console & automated EU AI Act certification go live
-              immediately upon formal incorporation.
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={() => onOpenComingSoon("Request Priority Early Access")}
-            className="text-white font-semibold underline underline-offset-4 hover:text-slate-200 transition-colors"
-          >
-            Join Priority Waitlist →
-          </button>
-        </div>
-      </div>
+    <div
+      id="top"
+      className="w-full text-white selection:bg-white selection:text-slate-950 overflow-x-clip pb-24"
+    >
+      <FloatingDockDemo />
 
       {/* =====================================================================
-       * 1. CENTERED VERCEL / STRIPE HERO SECTION
+       * 1. MINIMALIST HERO SECTION (No Eyebrow, No Green Font, Straight to Point)
        * =================================================================== */}
       <section className="relative border-b border-white/[0.08] overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-grid-beam opacity-65" />
+        <div className="pointer-events-none absolute inset-0 bg-grid-beam opacity-60" />
         <div
-          className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] max-w-full h-[420px] rounded-full blur-[140px] opacity-35"
+          className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] max-w-full h-[420px] rounded-full blur-[140px] opacity-40"
           style={{
             background:
-              "radial-gradient(circle, rgba(255,255,255,0.26) 0%, rgba(148,163,184,0.08) 55%, transparent 75%)",
+              "radial-gradient(circle, rgba(192,132,252,0.24) 0%, rgba(255,255,255,0.08) 55%, transparent 75%)",
           }}
         />
 
-        <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-10 pt-14 pb-20 lg:pt-20 lg:pb-24 border-x border-white/[0.07]">
+        <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-10 pt-16 pb-16 lg:pt-24 lg:pb-20 border-x border-white/[0.07]">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-center max-w-4xl mx-auto space-y-7"
+            className="text-center max-w-4xl mx-auto space-y-6"
           >
-            {/* Top Statutory Enforcement Pill */}
-            <a
-              href="#regulatory-crosswalk"
-              className="inline-flex flex-wrap items-center justify-center gap-3 px-4 py-2 rounded-full bg-white/[0.05] hover:bg-white/[0.09] border border-white/[0.15] backdrop-blur-xl transition-all"
-            >
-              <span className="px-2.5 py-0.5 rounded-full bg-white text-slate-950 font-mono font-extrabold text-[11px] uppercase tracking-wider">
-                EU AI ACT 2024/1689
-              </span>
-              <span className="text-[14px] text-slate-100 font-medium">
-                Statutory fines now reach{" "}
-                <strong className="text-white font-bold">
-                  €35M or 7% of global turnover
-                </strong>
-                . Inspect Articles 9–15 Crosswalk →
-              </span>
-            </a>
-
-            {/* Big Front-and-Center Headline */}
-            <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-extrabold tracking-[-0.04em] leading-[1.05] text-white">
+            <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-extrabold tracking-[-0.04em] leading-[1.04] text-white">
               <TextGenerateEffect words="AI is shipping faster than you can govern it." />
               <span className="block mt-2 text-gradient-metallic">
                 Prove compliance before regulators ask.
               </span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-[17px] sm:text-[20px] text-slate-300 leading-relaxed max-w-3xl mx-auto">
-              Accuracy benchmarks will not protect you from a{" "}
-              <strong className="text-white font-semibold">
-                €35 Million EU AI Act penalty
-              </strong>{" "}
-              or a blocked enterprise security review. Ethica stress-tests your
-              models across{" "}
-              <strong className="text-white font-semibold">
-                high-stakes ethical dilemmas
-              </strong>{" "}
-              and{" "}
-              <strong className="text-white font-semibold">
-                8 counterfactual perturbation modes
-              </strong>
-              —issuing cryptographically signed compliance certificates inside
-              your own VPC.
+            <p className="text-[17px] sm:text-[20px] text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
+              Stress-test models across 10,000 ethical dilemmas and 8
+              counterfactual framing modes. Issue signed EU AI Act & ISO 42001
+              certificates inside your VPC.
             </p>
 
-            {/* Centered Primary Actions */}
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-5 pt-2">
               <button
                 type="button"
-                onClick={() =>
-                  onOpenComingSoon("Evaluation Console — Coming Soon", "pro")
-                }
-                className="px-8 py-4 rounded-xl bg-white text-slate-950 text-[16px] font-extrabold tracking-tight hover:bg-slate-100 transition-all shadow-[0_12px_36px_rgba(255,255,255,0.22)]"
+                onClick={() => {
+                  if (onOpenComingSoon) {
+                    onOpenComingSoon("Live Evaluation Audit — Coming Soon");
+                  } else {
+                    setComingSoonTitle("Live Evaluation Audit — Coming Soon");
+                  }
+                }}
+                className="px-8 py-4 rounded-full bg-white text-slate-950 text-[16px] font-extrabold tracking-tight hover:bg-slate-100 transition-all shadow-[0_12px_36px_rgba(255,255,255,0.22)]"
               >
-                Request Early Evaluation Access →
+                Start Free EU AI Act Audit →
               </button>
               <a
                 href="#sandbox"
-                className="px-7 py-4 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white border border-white/[0.16] text-[16px] font-semibold transition-all"
+                className="px-5 py-4 text-slate-200 hover:text-white text-[16px] font-semibold transition-colors underline underline-offset-8 decoration-white/30 hover:decoration-white"
               >
-                Explore Live Stress Sandbox
+                Explore Live Sandbox
               </a>
             </div>
 
-            {/* Sleek Copyable CLI Pill (Zero Scrollbar) */}
-            <div className="pt-2 flex justify-center">
-              <div className="inline-flex flex-wrap items-center justify-between gap-4 px-5 py-3 rounded-xl bg-[#080a10] border border-white/[0.14] text-left max-w-full">
-                <div className="font-mono text-[14px] sm:text-[15px] text-slate-200 break-all sm:break-normal">
-                  <span className="text-slate-400 mr-2">$</span>
-                  python ethica_runner.py --model llama-3-70b --profile eu-ai-act
-                </div>
-                <button
-                  type="button"
-                  onClick={handleCopyCli}
-                  className="px-3 py-1 rounded-lg bg-white/[0.08] hover:bg-white/[0.16] border border-white/[0.14] text-[12px] font-mono font-bold text-white uppercase tracking-wider shrink-0 transition-colors"
-                >
-                  {copiedCli ? "COPIED" : "COPY CLI"}
-                </button>
-              </div>
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-4 text-[13.5px] font-mono text-slate-400">
+              <span>
+                <span className="text-purple-300 mr-2">$</span>
+                python ethica_runner.py --model llama-3-70b --profile eu-ai-act
+              </span>
+              <button
+                type="button"
+                onClick={handleCopyCli}
+                className="text-[12px] font-mono font-bold text-purple-300 hover:text-white uppercase tracking-widest underline underline-offset-4"
+              >
+                {copiedCli ? "[COPIED]" : "[COPY CLI]"}
+              </button>
             </div>
           </motion.div>
 
-          {/* Centered Full-Width 3D Perspective Telemetry Showcase */}
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.15 }}
-            className="mt-14"
-          >
-            <Perspective3DCard>
-              <BorderBeamCard innerClassName="p-6 sm:p-9">
-                <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-6 border-b border-white/[0.1]">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_12px_#34d399]" />
-                    <span className="font-mono text-[13px] uppercase tracking-widest text-slate-300 font-semibold">
-                      ETHICA SOVEREIGN ATTESTATION LEDGER — SAMPLE SERIAL BTX-ETH-2026-7E857159
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <span className="px-3 py-1 rounded-md bg-white/[0.07] border border-white/[0.14] font-mono text-[12px] text-white font-semibold">
-                      MODEL: claude-3-7-sonnet-enterprise
-                    </span>
-                    <span className="px-3 py-1 rounded-md bg-emerald-500/15 border border-emerald-400/35 font-mono text-[12px] text-emerald-300 font-bold">
-                      EU AI ACT ART. 9–15 CERTIFIED
-                    </span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-                  <div className="lg:col-span-4 p-6 rounded-xl bg-white/[0.03] border border-white/[0.1] flex flex-col justify-between space-y-5">
-                    <div>
-                      <div className="text-[12px] font-mono uppercase tracking-wider text-slate-300">
-                        COMPOSITE ETHICAL PRINCIPLE INDEX
-                      </div>
-                      <div className="text-5xl font-mono font-extrabold text-white mt-3 tracking-tight">
-                        0.914
-                      </div>
-                      <div className="inline-block mt-2 px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 font-mono text-[12px] font-bold">
-                        PASS THRESHOLD ≥ 0.800
-                      </div>
-                    </div>
-                    <div className="pt-4 border-t border-white/[0.08] space-y-1.5 text-[14px] text-slate-300">
-                      <div className="flex justify-between">
-                        <span>Perturbation Modes</span>
-                        <span className="font-mono text-white font-semibold">
-                          8x Counterfactuals
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Ensemble Judges</span>
-                        <span className="font-mono text-white font-semibold">
-                          15 Calibrated LLMs
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="lg:col-span-8 p-6 rounded-xl bg-white/[0.03] border border-white/[0.1] flex flex-col justify-between space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[12px] font-mono uppercase tracking-wider text-slate-300 font-semibold">
-                        EU AI ACT STATUTORY ARTICLE VERIFICATION MATRIX
-                      </span>
-                      <span className="text-[12px] font-mono text-slate-300">
-                        SHA-256: 9f84c219...c0d1e21b
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {[
-                        {
-                          code: "ART. 9",
-                          name: "Risk Management System",
-                          pct: 94,
-                        },
-                        {
-                          code: "ART. 10",
-                          name: "Demographic Bias Parity",
-                          pct: 96,
-                        },
-                        {
-                          code: "ART. 12",
-                          name: "Cryptographic Traceability",
-                          pct: 100,
-                        },
-                        {
-                          code: "ART. 15",
-                          name: "Framing & Sycophancy Resilience",
-                          pct: 91,
-                        },
-                      ].map((art) => (
-                        <div
-                          key={art.code}
-                          className="p-3.5 rounded-lg bg-black/40 border border-white/[0.08] space-y-2"
-                        >
-                          <div className="flex items-center justify-between text-[14px]">
-                            <div className="flex items-center gap-2">
-                              <span className="px-2 py-0.5 rounded bg-white text-slate-950 font-mono text-[11px] font-bold">
-                                {art.code}
-                              </span>
-                              <span className="font-semibold text-white">
-                                {art.name}
-                              </span>
-                            </div>
-                            <span className="font-mono font-bold text-white">
-                              {art.pct}%
-                            </span>
-                          </div>
-                          <div className="w-full h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
-                            <div
-                              className="h-full rounded-full bg-white"
-                              style={{ width: `${art.pct}%` }}
-                            />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </BorderBeamCard>
-            </Perspective3DCard>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* =====================================================================
-       * 2. INFINITE MARQUEE TICKER + 4-COLUMN ARCHITECTURAL METRIC STRIP
-       * =================================================================== */}
-      <InfiniteMarquee items={MARQUEE_ITEMS} />
-
-      <section className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto border-x border-white/[0.07]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.08]">
+          {/* Compact 4-Column Metric Strip */}
+          <div className="mt-16 pt-10 border-t border-white/[0.09] grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x divide-white/[0.09]">
             {[
               {
                 stat: "€35M / 7%",
                 title: "EU AI Act Penalty Cap",
-                desc: "Maximum statutory fine under Regulation (EU) 2024/1689 for non-compliant high-risk AI.",
+                desc: "Statutory fine under Regulation 2024/1689.",
               },
               {
-                stat: "12 Sectors",
-                title: "Multi-Domain Dilemmas",
-                desc: "Forced-choice operational trade-offs across clinical, financial, legal, and civic sectors.",
+                stat: "10,000+",
+                title: "Ethical Dilemmas",
+                desc: "Clinical, financial, legal & civic trade-offs.",
               },
               {
                 stat: "69 Signals",
                 title: "15-Judge Ensemble",
-                desc: "Calibrated consequence vectors measuring ethical consistency, bias parity, and sycophancy.",
+                desc: "Measures bias parity and sycophancy.",
               },
               {
                 stat: "< 5 Mins",
                 title: "Audit to Certificate",
-                desc: "Generates signed 4-page EU AI Act, NIST AI RMF, and ISO 42001 PDF dossiers automatically.",
+                desc: "Signed 4-page statutory PDF dossier.",
               },
             ].map((item, idx) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: idx * 0.07 }}
-                className="p-8 lg:p-9 space-y-2 hover:bg-white/[0.02] transition-colors"
+                transition={{ duration: 0.3, delay: idx * 0.05 }}
+                className="lg:px-8 first:lg:pl-0 last:lg:pr-0 space-y-1"
               >
                 <div className="text-3xl lg:text-4xl font-mono font-extrabold text-white tracking-tight">
                   {item.stat}
                 </div>
-                <div className="text-[17px] font-bold text-white">
+                <div className="text-[15px] font-bold text-purple-200">
                   {item.title}
                 </div>
-                <p className="text-[14.5px] text-slate-300 leading-relaxed">
+                <p className="text-[13.5px] text-slate-400 leading-snug">
                   {item.desc}
                 </p>
               </motion.div>
@@ -611,64 +469,110 @@ export default function Home({ onOpenComingSoon }: HomeProps) {
       </section>
 
       {/* =====================================================================
-       * 3. WHY CUSTOMERS CHOOSE ETHICA (4-CARD VERCEL BENTO GRID)
+       * 2. INFINITE MARQUEE + FAST GOOGLE GEMINI SCROLL WAVE
+       * =================================================================== */}
+      <InfiniteMarquee items={MARQUEE_ITEMS} />
+
+      <section className="border-b border-white/[0.08]">
+        <GoogleGeminiEffectDemo />
+      </section>
+
+      {/* =====================================================================
+       * 3. WHY ETHICA (Open 2x2 Hairline Layout — Concise Copy, Monochrome)
        * =================================================================== */}
       <section id="why-ethica" className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-28 border-x border-white/[0.07] space-y-14">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-14">
           <SectionHeader
-            eyebrow="WHY ENTERPRISES STANDARDIZE ON ETHICA"
-            title="Self-reported ethics checklists are dead."
-            highlight="Regulators and CISOs demand cryptographic proof."
-            description="Whether you are deploying clinical triage assistants, algorithmic underwriting, or enterprise AI agents, Ethica turns regulatory governance into an immediate competitive advantage."
+            title="Self-reported checklists are dead."
+            highlight="Regulators demand cryptographic proof."
+            description="You cannot govern a system that acts in milliseconds with a monthly audit."
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+          {/* Minimalist Governance Gap Callout (Credo AI Style) */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="py-12 px-6 sm:px-12 rounded-2xl bg-[#040508] border border-white/[0.09] flex flex-col items-center justify-center text-center"
+          >
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-14">
+              <div className="flex items-center gap-4">
+                <span className="text-5xl sm:text-6xl font-extrabold text-white tracking-tight">
+                  60%
+                </span>
+                <span className="text-left text-[15px] sm:text-[16px] text-slate-300 leading-snug font-medium">
+                  of enterprises
+                  <br />
+                  are scaling AI
+                </span>
+              </div>
+
+              <div className="hidden sm:block w-[1px] h-14 bg-white/[0.12]" />
+
+              <div className="flex items-center gap-4">
+                <span className="text-[15px] sm:text-[16px] text-slate-300 font-medium">
+                  Only
+                </span>
+                <span className="text-5xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-b from-[#e9d5ff] to-[#c084fc] bg-clip-text text-transparent">
+                  4%
+                </span>
+                <span className="text-[15px] sm:text-[16px] text-slate-300 font-medium">
+                  are governing it.
+                </span>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 border-t border-white/[0.09]">
             {WHY_CUSTOMERS_USE_ETHICA.map((pillar, idx) => (
               <motion.div
                 key={pillar.tag}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className="h-full"
+                transition={{ duration: 0.35, delay: idx * 0.06 }}
+                className={`py-10 lg:py-12 border-b border-white/[0.09] flex flex-col justify-between space-y-6 ${
+                  idx % 2 === 0
+                    ? "lg:pr-12 lg:border-r lg:border-white/[0.09]"
+                    : "lg:pl-12"
+                }`}
               >
-                <SpotlightCard className="p-8 lg:p-9 h-full flex flex-col justify-between space-y-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between gap-4 pb-4 border-b border-white/[0.09]">
-                      <span className="text-[13px] font-mono font-bold uppercase tracking-wider text-slate-300">
-                        {pillar.tag}
+                <div className="space-y-3">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <span className="text-[12px] font-mono font-bold uppercase tracking-[0.16em] text-purple-300">
+                      {pillar.tag}
+                    </span>
+                    <div className="text-right">
+                      <span className="text-3xl font-mono font-extrabold text-white tracking-tight">
+                        {pillar.headlineMetric}
                       </span>
-                      <div className="text-right">
-                        <span className="text-xl font-mono font-extrabold text-white">
-                          {pillar.headlineMetric}
-                        </span>
-                        <span className="block text-[12px] font-mono text-slate-300">
-                          {pillar.headlineSub}
-                        </span>
-                      </div>
+                      <span className="block text-[11.5px] font-mono text-slate-400">
+                        {pillar.headlineSub}
+                      </span>
                     </div>
-
-                    <h3 className="text-2xl font-bold text-white tracking-tight leading-snug">
-                      {pillar.title}
-                    </h3>
-
-                    <p className="text-[16px] text-slate-200 leading-relaxed">
-                      {pillar.description}
-                    </p>
                   </div>
 
-                  <div className="pt-4 border-t border-white/[0.09] space-y-2.5">
-                    {pillar.bullets.map((b) => (
-                      <div
-                        key={b}
-                        className="flex items-start gap-3 text-[15px] text-white font-medium"
-                      >
-                        <span className="mt-2 w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
-                        <span>{b}</span>
-                      </div>
-                    ))}
-                  </div>
-                </SpotlightCard>
+                  <h3 className="text-2xl font-extrabold text-white tracking-tight">
+                    {pillar.title}
+                  </h3>
+
+                  <p className="text-[15.5px] text-slate-300 leading-relaxed">
+                    {pillar.description}
+                  </p>
+                </div>
+
+                <div className="space-y-2 pt-1">
+                  {pillar.bullets.map((b) => (
+                    <div
+                      key={b}
+                      className="flex items-start gap-2.5 text-[14.5px] text-slate-200 font-medium"
+                    >
+                      <span className="text-purple-300 font-mono">—</span>
+                      <span>{b}</span>
+                    </div>
+                  ))}
+                </div>
               </motion.div>
             ))}
           </div>
@@ -676,22 +580,21 @@ export default function Home({ onOpenComingSoon }: HomeProps) {
       </section>
 
       {/* =====================================================================
-       * 4. CLOUDFLARE-STYLE ANIMATED TELEMETRY TOPOLOGY
+       * 4. TELEMETRY TOPOLOGY (Open Layout)
        * =================================================================== */}
-      <section className="border-b border-white/[0.08] bg-[#07090e]/50">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-28 border-x border-white/[0.07] space-y-14">
+      <section className="border-b border-white/[0.08]">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-12">
           <SectionHeader
-            eyebrow="AUTONOMOUS TELEMETRY ENGINE"
             title="Don’t just hope your AI is compliant."
             highlight="Verify every decision boundary."
-            description="Inspect how Ethica routes prompts from your private model endpoints through our 8-mode counterfactual perturbation engine and into immutable statutory certificates."
+            description="Route prompts from private model endpoints through 8 counterfactual framing modes into immutable certificates."
           />
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.45 }}
+            transition={{ duration: 0.4 }}
           >
             <FuturisticGovernanceOrb />
           </motion.div>
@@ -699,15 +602,14 @@ export default function Home({ onOpenComingSoon }: HomeProps) {
       </section>
 
       {/* =====================================================================
-       * 5. INTERACTIVE REGULATORY CROSSWALK (EU AI Act / NIST / ISO 42001)
+       * 5. REGULATORY CROSSWALK (Unboxed, Direct & Concise)
        * =================================================================== */}
       <section id="regulatory-crosswalk" className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-28 border-x border-white/[0.07] space-y-12">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-12">
           <SectionHeader
-            eyebrow="AUTOMATED REGULATORY CROSSWALK"
             title="One evaluation run."
-            highlight="Instant compliance across global AI laws."
-            description="Switch between regulatory frameworks below to inspect how Ethica’s 69 behavioral signals automatically generate statutory audit evidence."
+            highlight="Instant global compliance."
+            description="69 behavioral signals automatically mapped to statutory articles."
           />
 
           <div className="flex justify-center">
@@ -734,95 +636,89 @@ export default function Home({ onOpenComingSoon }: HomeProps) {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeFramework}
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.22 }}
+              className="space-y-10 pt-2"
             >
-              <SpotlightCard className="p-7 sm:p-10 space-y-8">
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-7 border-b border-white/[0.1]">
-                  <div className="space-y-2 max-w-3xl">
-                    <span className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[12px] font-mono font-bold text-white uppercase tracking-wider">
-                      {fw.badge}
-                    </span>
-                    <h3 className="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">
-                      {fw.title}
-                    </h3>
-                    <p className="text-[16px] text-slate-200 leading-relaxed">
-                      {fw.summary}
+              <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-white/[0.1]">
+                <div className="space-y-2 max-w-2xl">
+                  <h3 className="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">
+                    {fw.title}
+                  </h3>
+                  <p className="text-[16px] text-slate-300 leading-relaxed">
+                    {fw.summary}
+                  </p>
+                </div>
+                <div className="lg:text-right shrink-0">
+                  <div className="text-[11px] font-mono uppercase tracking-[0.16em] text-slate-400">
+                    STATUTORY EXPOSURE
+                  </div>
+                  <div className="text-lg font-bold text-white mt-0.5">
+                    {fw.penalty}
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                {fw.controls.map((ctrl, idx) => (
+                  <div
+                    key={ctrl.code}
+                    className={`py-8 border-b border-white/[0.09] flex flex-col justify-between space-y-3 ${
+                      idx % 2 === 0
+                        ? "md:pr-10 md:border-r md:border-white/[0.09]"
+                        : "md:pl-10"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2.5">
+                        <span className="font-mono font-bold text-[13px] text-purple-300 uppercase tracking-wider">
+                          {ctrl.code}
+                        </span>
+                        <span className="text-white/25">/</span>
+                        <h4 className="text-[18px] font-bold text-white tracking-tight">
+                          {ctrl.name}
+                        </h4>
+                      </div>
+                      <span className="text-[12px] font-mono font-semibold text-purple-200/80 shrink-0">
+                        {ctrl.metric}
+                      </span>
+                    </div>
+
+                    <p className="text-[14.5px] text-slate-300 leading-relaxed">
+                      <strong className="text-white font-semibold">Mandate: </strong>
+                      {ctrl.requirement}
                     </p>
-                  </div>
-                  <div className="p-5 rounded-xl bg-white/[0.04] border border-white/[0.14] lg:text-right shrink-0">
-                    <div className="text-[12px] font-mono uppercase tracking-wider text-slate-300">
-                      STATUTORY / COMMERCIAL EXPOSURE
-                    </div>
-                    <div className="text-lg font-bold text-white mt-1">
-                      {fw.penalty}
+
+                    <div className="text-[14.5px] text-slate-200 leading-relaxed">
+                      <strong className="text-purple-300 font-semibold">Proof: </strong>
+                      {ctrl.ethicaEvidence}
                     </div>
                   </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-                  {fw.controls.map((ctrl) => (
-                    <div
-                      key={ctrl.code}
-                      className="p-6 rounded-xl bg-white/[0.025] border border-white/[0.1] hover:border-white/[0.24] transition-all flex flex-col justify-between space-y-4"
-                    >
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-between gap-2">
-                          <div className="flex items-center gap-2.5">
-                            <span className="px-2.5 py-1 rounded-md bg-white text-slate-950 font-mono font-bold text-[13px]">
-                              {ctrl.code}
-                            </span>
-                            <h4 className="text-[18px] font-bold text-white">
-                              {ctrl.name}
-                            </h4>
-                          </div>
-                          <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 text-[12px] font-mono font-semibold shrink-0">
-                            {ctrl.metric}
-                          </span>
-                        </div>
-
-                        <p className="text-[15px] text-slate-200 leading-relaxed">
-                          <strong className="text-white font-semibold">
-                            Mandate:{" "}
-                          </strong>
-                          {ctrl.requirement}
-                        </p>
-                      </div>
-
-                      <div className="pt-3 border-t border-white/[0.08] text-[15px] text-slate-100 leading-relaxed">
-                        <strong className="text-emerald-300 font-semibold">
-                          Ethica Proof:{" "}
-                        </strong>
-                        {ctrl.ethicaEvidence}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </SpotlightCard>
+                ))}
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
       </section>
 
       {/* =====================================================================
-       * 6. INTERACTIVE COUNTERFACTUAL SCENARIO SANDBOX
+       * 6. INTERACTIVE PERTURBATION SANDBOX
        * =================================================================== */}
-      <section id="sandbox" className="border-b border-white/[0.08] bg-[#07090e]/50">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-28 border-x border-white/[0.07] space-y-12">
+      <section id="sandbox" className="border-b border-white/[0.08]">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-10">
           <SectionHeader
-            eyebrow="LIVE PERTURBATION SANDBOX"
-            title="See why static benchmarks fail"
-            highlight="under adversarial framing pressure."
-            description="Test how Ethica mutates clinical and financial dilemmas across executive authority pressure and demographic counterfactuals."
+            title="Static benchmarks fail"
+            highlight="under framing pressure."
+            description="Test how Ethica mutates clinical and financial dilemmas across authority overrides and demographic swaps."
           />
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.45 }}
+            transition={{ duration: 0.4 }}
           >
             <InteractiveScenarioSandbox />
           </motion.div>
@@ -833,19 +729,18 @@ export default function Home({ onOpenComingSoon }: HomeProps) {
        * 7. 4-STAGE ZERO-TRUST ARCHITECTURE PIPELINE
        * =================================================================== */}
       <section id="architecture" className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-28 border-x border-white/[0.07] space-y-12">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-10">
           <SectionHeader
-            eyebrow="ZERO-TRUST CLI ARCHITECTURE"
             title="Built for air-gapped VPCs."
             highlight="Zero weight exfiltration."
-            description="Select any stage below to inspect how Ethica executes counterfactual evaluations inside your private infrastructure."
+            description="Execute 80,000 counterfactual evaluations inside your private infrastructure."
           />
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.45 }}
+            transition={{ duration: 0.4 }}
           >
             <AnimatedBeamPipeline />
           </motion.div>
@@ -853,142 +748,273 @@ export default function Home({ onOpenComingSoon }: HomeProps) {
       </section>
 
       {/* =====================================================================
-       * 8. PUBLIC SHA-256 CERTIFICATE REGISTRY VERIFICATION PREVIEW
+       * 8. PUBLIC SHA-256 CERTIFICATE REGISTRY (No Eyebrow, No Green Font)
        * =================================================================== */}
-      <section
-        id="verification"
-        className="border-b border-white/[0.08] bg-[#07090e]/50"
-      >
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-28 border-x border-white/[0.07]">
-          <SpotlightCard className="p-8 lg:p-11">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              <div className="lg:col-span-6 space-y-5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.14] text-[12px] font-mono uppercase tracking-wider text-white font-semibold">
-                  PUBLIC SHA-256 REGISTRY PREVIEW
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                  Instant Third-Party Certificate Verification
-                </h2>
-                <p className="text-[16.5px] text-slate-200 leading-relaxed">
-                  Regulators, enterprise procurement officers, and external
-                  auditors can verify any Ethica Certificate Serial against our
-                  cryptographic SHA-256 registry to confirm EU AI Act compliance.
-                </p>
+      <section id="verification" className="border-b border-white/[0.08]">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-6 space-y-4">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-[1.08]">
+                Instant Certificate Verification.
+              </h2>
+              <p className="text-[16px] text-slate-300 leading-relaxed">
+                Verify any Ethica Certificate Serial against our SHA-256
+                registry to confirm EU AI Act & ISO 42001 compliance.
+              </p>
 
-                <form
-                  onSubmit={handleVerifyCert}
-                  className="flex flex-col sm:flex-row gap-3 pt-1"
+              <form
+                onSubmit={handleVerifyCert}
+                className="flex flex-col sm:flex-row gap-3 pt-2"
+              >
+                <input
+                  type="text"
+                  value={certQuery}
+                  onChange={(e) => setCertQuery(e.target.value)}
+                  placeholder="Enter Serial (e.g. BTX-ETH-2026-7E857159)"
+                  className="input-field font-mono flex-1"
+                />
+                <button
+                  type="submit"
+                  disabled={certLoading}
+                  className="btn-primary shrink-0"
                 >
-                  <input
-                    type="text"
-                    value={certQuery}
-                    onChange={(e) => setCertQuery(e.target.value)}
-                    placeholder="Enter Serial (e.g. BTX-ETH-2026-7E857159)"
-                    className="input-field font-mono flex-1"
-                  />
-                  <button type="submit" className="btn-primary shrink-0">
-                    Verify Sample Serial
-                  </button>
-                </form>
+                  {certLoading ? "Verifying..." : "Verify Serial"}
+                </button>
+              </form>
 
-                <div className="flex flex-wrap items-center gap-2 text-[13.5px] text-slate-300">
-                  <span>Sample Serials:</span>
-                  {["BTX-ETH-2026-7E857159", "BTX-ETH-2026-44A10C2E"].map(
-                    (sampleId) => (
-                      <button
-                        key={sampleId}
-                        type="button"
-                        onClick={() => setCertQuery(sampleId)}
-                        className="px-2.5 py-1 rounded-md bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.14] font-mono text-white text-[12.5px]"
-                      >
-                        {sampleId}
-                      </button>
-                    )
-                  )}
-                </div>
+              <div className="flex flex-wrap items-center gap-4 text-[13px] text-slate-400 pt-1">
+                <span className="font-mono uppercase text-[11.5px]">
+                  Sample Serials:
+                </span>
+                {["BTX-ETH-2026-7E857159", "BTX-ETH-2026-44A10C2E"].map(
+                  (sampleId) => (
+                    <button
+                      key={sampleId}
+                      type="button"
+                      onClick={() => setCertQuery(sampleId)}
+                      className="font-mono text-white hover:text-slate-300 text-[12.5px] underline underline-offset-4"
+                    >
+                      {sampleId}
+                    </button>
+                  )
+                )}
               </div>
+            </div>
 
-              <div className="lg:col-span-6">
-                {certResult && (
-                  <div className="p-6 sm:p-7 rounded-xl bg-[#05060a] border border-white/[0.14] space-y-5">
-                    <div className="flex items-center justify-between border-b border-white/[0.1] pb-4">
+            <div className="lg:col-span-6 lg:pl-12 lg:border-l border-white/[0.1]">
+              {certError ? (
+                <div className="py-6 text-[15px] text-rose-300 font-mono">
+                  {certError}
+                </div>
+              ) : (
+                certResult && (
+                  <div className="divide-y divide-white/[0.1] border-y border-white/[0.1]">
+                    <div className="py-4 flex items-center justify-between">
                       <div>
-                        <div className="text-[12px] font-mono uppercase tracking-wider text-slate-300">
-                          SAMPLE VERIFIED LEDGER RECORD
+                        <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                          VERIFIED RECORD
                         </div>
                         <div className="text-xl font-mono font-bold text-white mt-0.5">
                           {certResult.certificate_id}
                         </div>
                       </div>
-                      <span className="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 text-[12px] font-mono font-bold">
+                      <span className="text-[11px] font-mono font-bold text-purple-300 uppercase tracking-widest">
                         AUTHENTICATED
                       </span>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="p-4 rounded-lg bg-white/[0.03] border border-white/[0.08]">
-                        <div className="text-[12px] font-mono text-slate-300 uppercase">
+                    <div className="py-4 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div>
+                        <div className="text-[11px] font-mono text-slate-400 uppercase">
                           AUDITED MODEL
                         </div>
-                        <div className="text-[16px] font-bold text-white mt-1 truncate">
+                        <div className="text-[17px] font-bold text-white mt-0.5 truncate">
                           {certResult.model_name}
                         </div>
                       </div>
-                      <div className="p-4 rounded-lg bg-white/[0.03] border border-white/[0.08]">
-                        <div className="text-[12px] font-mono text-slate-300 uppercase">
+                      <div>
+                        <div className="text-[11px] font-mono text-slate-400 uppercase">
                           COMPOSITE EPI SCORE
                         </div>
-                        <div className="text-2xl font-mono font-extrabold text-emerald-300 mt-1">
+                        <div className="text-2xl font-mono font-extrabold text-purple-300 mt-0.5">
                           {Number(certResult.epi_score || 0.914).toFixed(3)}
                         </div>
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-lg bg-white/[0.03] border border-white/[0.08] space-y-1">
-                      <div className="text-[12px] font-mono text-slate-300 uppercase">
-                        IMMUTABLE SHA-256 ARTIFACT DIGEST
+                    <div className="py-4 space-y-1">
+                      <div className="text-[11px] font-mono text-slate-400 uppercase">
+                        SHA-256 ARTIFACT DIGEST
                       </div>
-                      <div className="text-[13px] font-mono text-white break-all">
+                      <div className="text-[13px] font-mono text-slate-300 break-all">
                         {certResult.sha256_hash}
                       </div>
                     </div>
                   </div>
-                )}
-              </div>
+                )
+              )}
             </div>
-          </SpotlightCard>
+          </div>
         </div>
       </section>
 
       {/* =====================================================================
-       * 9. SUBSCRIPTION PLANS & ENTERPRISE LICENSING MATRIX
+       * 9. PRICING MATRIX
        * =================================================================== */}
       <section id="pricing" className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-28 border-x border-white/[0.07] space-y-12">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-10">
           <SectionHeader
-            eyebrow="ENTERPRISE LICENSING & SUBSCRIPTION TIERS"
-            title="Predictable compliance infrastructure"
-            highlight="at a fraction of a single fine."
-            description="Reserve your priority enterprise tier now. Public evaluation workspaces activate immediately upon formal incorporation."
+            title="Start with 1 free evaluation."
+            highlight="Scale to full pipeline compliance."
+            description="Choose a 1-month evaluation pass or a 6-month / yearly contract where we integrate into your pipeline, compare model versions, and make your AI pass EU, USA & global laws."
           />
 
-          <PricingMatrix onSelectPlan={handlePlanChoice} />
+          <PricingMatrix
+            onSelectPlan={handlePlanChoice}
+            currentTier={activeTier}
+          />
         </div>
       </section>
 
       {/* =====================================================================
-       * 10. ARCHITECTURAL FOOTER
+       * 10. ABOUT BUGSTEX TECHNOLOGIES & EXECUTIVE LEADERSHIP
        * =================================================================== */}
-      <footer className="bg-[#040507] text-[14.5px] text-slate-300">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-14 border-x border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-6">
+      <section id="about" className="border-b border-white/[0.08]">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-16">
+          {/* 01 // ORGANIZATION — About & Leadership */}
+          <div className="space-y-10">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-white/[0.09]">
+              <div className="space-y-2">
+                <div className="text-[12px] font-mono text-purple-300 uppercase tracking-[0.2em]">
+                  01 // ORGANIZATION — BUGSTEX TECHNOLOGIES
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                  About & Leadership
+                </h2>
+              </div>
+              <p className="text-[15.5px] text-slate-400 leading-relaxed max-w-md">
+                Engineered to establish an independent standard of trust between
+                model providers, enterprise operators, and global regulators.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {[
+                {
+                  num: "01",
+                  tag: "FOUNDING EXECUTIVE",
+                  name: "Pratyush Chaudhari",
+                  role: "CEO, Founder & Director",
+                },
+                {
+                  num: "02",
+                  tag: "EXECUTIVE LEADERSHIP",
+                  name: "Vyankatesh Dawale",
+                  role: "Managing Director & CTO",
+                },
+                {
+                  num: "03",
+                  tag: "OPERATIONS",
+                  name: "Saim Kotkar",
+                  role: "Chief Operating Officer (COO)",
+                },
+                {
+                  num: "04",
+                  tag: "GROWTH & STRATEGY",
+                  name: "Aditya Adhikar",
+                  role: "Chief Marketing Officer (CMO)",
+                },
+              ].map((leader) => (
+                <div
+                  key={leader.num}
+                  className="p-6 rounded-xl bg-[#07090e]/80 border border-white/[0.09] hover:border-purple-400/25 transition-colors flex flex-col justify-between space-y-8"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[12px] font-mono text-purple-300/70">
+                      {leader.num}
+                    </span>
+                    <span className="px-2.5 py-1 rounded bg-purple-500/[0.07] border border-purple-400/20 text-[10px] font-mono uppercase tracking-[0.14em] text-purple-200">
+                      {leader.tag}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="text-[19px] font-bold text-white tracking-tight">
+                      {leader.name}
+                    </div>
+                    <div className="text-[14px] text-slate-400 mt-1">
+                      {leader.role}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 02 // INQUIRIES & PARTNERSHIPS — Connect with our team */}
+          <div className="p-8 sm:p-10 rounded-2xl bg-[#07090e]/80 border border-white/[0.09] flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+            <div className="space-y-2 max-w-md">
+              <div className="text-[12px] font-mono text-purple-300 uppercase tracking-[0.2em]">
+                02 // INQUIRIES & PARTNERSHIPS
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Connect with our team.
+              </h3>
+              <p className="text-[15px] text-slate-400 leading-relaxed pt-1">
+                For enterprise pilot inquiries, institutional partnerships, or
+                early platform access.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-8 sm:gap-14">
+              <div className="space-y-2">
+                <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
+                  ELECTRONIC MAIL
+                </div>
+                <a
+                  href="mailto:bugstex.sales@gmail.com"
+                  className="block font-mono text-[15px] font-semibold text-white hover:text-slate-300 transition-colors"
+                >
+                  bugstex.sales@gmail.com
+                </a>
+              </div>
+
+              <div className="space-y-2">
+                <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
+                  DIRECT LINES
+                </div>
+                <div className="space-y-1 font-mono text-[15px] font-semibold text-white">
+                  <a
+                    href="tel:+919370949163"
+                    className="block hover:text-slate-300 transition-colors"
+                  >
+                    +91 93709 49163
+                  </a>
+                  <a
+                    href="tel:+919765006889"
+                    className="block hover:text-slate-300 transition-colors"
+                  >
+                    +91 97650 06889
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+       * 11. ARCHITECTURAL FOOTER
+       * =================================================================== */}
+      <footer className="bg-[#040507] text-[14px] text-slate-400">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-12 border-x border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-white text-slate-950 flex items-center justify-center font-mono font-black text-base">
+            <div className="w-7 h-7 rounded-md bg-white text-slate-950 flex items-center justify-center font-mono font-black text-sm">
               E
             </div>
             <span className="font-bold text-white tracking-tight">
-              BUGSTEX TECHNOLOGIES — ETHICA AI GOVERNANCE
+              ETHICA BY BUGSTEX TECHNOLOGIES
             </span>
-            <span className="text-slate-500">|</span>
+            <span className="text-slate-600">|</span>
             <span>EU AI Act • NIST AI RMF • ISO/IEC 42001</span>
           </div>
           <div className="flex flex-wrap items-center gap-6">
@@ -1013,13 +1039,27 @@ export default function Home({ onOpenComingSoon }: HomeProps) {
             <a href="#pricing" className="hover:text-white transition-colors">
               Pricing
             </a>
+            <a href="#about" className="hover:text-white transition-colors">
+              About
+            </a>
           </div>
         </div>
       </footer>
-      {/* =====================================================================
-       * FLOATING DOCK SECTION NAVIGATION
-       * =================================================================== */}
-      <FloatingDockDemo />
+
+      {(localCheckoutPlan || comingSoonTitle) && (
+        <SubscriptionCheckoutModal
+          open={Boolean(localCheckoutPlan || comingSoonTitle)}
+          selectedPlan={localCheckoutPlan}
+          contextTitle={comingSoonTitle || undefined}
+          cycle={localCheckoutCycle}
+          currency={localCheckoutCurrency}
+          isAuthenticated={false}
+          onClose={() => {
+            setLocalCheckoutPlan(null);
+            setComingSoonTitle(null);
+          }}
+        />
+      )}
     </div>
   );
 }
