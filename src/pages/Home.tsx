@@ -347,7 +347,7 @@ export default function Home({
   return (
     <div
       id="top"
-      className="w-full text-white selection:bg-white selection:text-slate-950 overflow-x-clip pb-24"
+      className="w-full text-white selection:bg-white selection:text-slate-950 overflow-x-hidden pb-24"
     >
       <FloatingDockDemo />
 
@@ -364,7 +364,7 @@ export default function Home({
           }}
         />
 
-        <div className="relative z-10 max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 pt-16 pb-16 lg:pt-24 lg:pb-24 xl:pt-28 xl:pb-28 border-x border-white/[0.07]">
+        <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 pt-16 pb-16 lg:pt-24 lg:pb-24 xl:pt-28 xl:pb-28 border-x-0 lg:border-x border-white/[0.07]">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -481,7 +481,7 @@ export default function Home({
        * 3. WHY ETHICA (Open 2x2 Hairline Layout — Concise Copy, Monochrome)
        * =================================================================== */}
       <section id="why-ethica" className="border-b border-white/[0.08]">
-        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-16">
+        <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x-0 lg:border-x border-white/[0.07] space-y-16">
           <SectionHeader
             title="Self-reported checklists are dead."
             highlight="Regulators demand cryptographic proof."
@@ -583,7 +583,7 @@ export default function Home({
        * 4. TELEMETRY TOPOLOGY (Open Layout)
        * =================================================================== */}
       <section className="border-b border-white/[0.08]">
-        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-16">
+        <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x-0 lg:border-x border-white/[0.07] space-y-16">
           <SectionHeader
             title="Don’t just hope your AI is compliant."
             highlight="Verify every decision boundary."
@@ -605,7 +605,7 @@ export default function Home({
        * 5. REGULATORY CROSSWALK (Unboxed, Direct & Concise)
        * =================================================================== */}
       <section id="regulatory-crosswalk" className="border-b border-white/[0.08]">
-        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-16">
+        <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x-0 lg:border-x border-white/[0.07] space-y-16">
           <SectionHeader
             title="One evaluation run."
             highlight="Instant global compliance."
@@ -707,7 +707,7 @@ export default function Home({
        * 6. INTERACTIVE PERTURBATION SANDBOX
        * =================================================================== */}
       <section id="sandbox" className="border-b border-white/[0.08]">
-        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-12">
+        <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x-0 lg:border-x border-white/[0.07] space-y-12">
           <SectionHeader
             title="Static benchmarks fail"
             highlight="under framing pressure."
@@ -729,7 +729,7 @@ export default function Home({
        * 7. 4-STAGE ZERO-TRUST ARCHITECTURE PIPELINE
        * =================================================================== */}
       <section id="architecture" className="border-b border-white/[0.08]">
-        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-12">
+        <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x-0 lg:border-x border-white/[0.07] space-y-12">
           <SectionHeader
             title="Built for air-gapped VPCs."
             highlight="Zero weight exfiltration."
@@ -751,7 +751,7 @@ export default function Home({
        * 8. PUBLIC SHA-256 CERTIFICATE REGISTRY (No Eyebrow, No Green Font)
        * =================================================================== */}
       <section id="verification" className="border-b border-white/[0.08]">
-        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07]">
+        <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x-0 lg:border-x border-white/[0.07]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16 items-start">
             <div className="lg:col-span-6 space-y-5">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.08]">
@@ -862,7 +862,7 @@ export default function Home({
        * 9. PRICING MATRIX
        * =================================================================== */}
       <section id="pricing" className="border-b border-white/[0.08]">
-        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-12">
+        <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x-0 lg:border-x border-white/[0.07] space-y-12">
           <SectionHeader
             title="Start with 1 free evaluation."
             highlight="Scale to full pipeline compliance."
@@ -880,7 +880,7 @@ export default function Home({
        * 10. ABOUT BUGSTEX TECHNOLOGIES & EXECUTIVE LEADERSHIP
        * =================================================================== */}
       <section id="about" className="border-b border-white/[0.08]">
-        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-16">
+        <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x-0 lg:border-x border-white/[0.07] space-y-16">
           {/* 01 // ORGANIZATION — About & Leadership */}
           <div className="space-y-10">
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-white/[0.09]">
@@ -1006,7 +1006,7 @@ export default function Home({
        * 11. ARCHITECTURAL FOOTER
        * =================================================================== */}
       <footer className="bg-[#040507] text-[14px] sm:text-[15px] text-slate-400">
-        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-12 border-x border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-6 pb-[max(3rem,calc(env(safe-area-inset-bottom,0px)+3rem))]">
+        <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-12 border-x-0 lg:border-x border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-6 pb-[max(3rem,calc(env(safe-area-inset-bottom,0px)+3rem))]">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 sm:gap-3">
             <div className="w-7 h-7 rounded-md bg-white text-slate-950 flex items-center justify-center font-mono font-black text-sm shrink-0">
               E

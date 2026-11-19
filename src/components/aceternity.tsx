@@ -308,10 +308,10 @@ export function FuturisticGovernanceOrb() {
         </div>
 
         {/* SVG Animated Laser Beam Diagram */}
-        <div className="relative my-6 sm:my-8 py-4 flex items-center justify-between overflow-x-auto no-scrollbar min-w-0">
+        <div className="relative my-6 sm:my-8 py-4 flex items-center justify-between w-full max-w-full overflow-hidden">
           <svg
             viewBox="0 0 600 240"
-            className="absolute inset-0 w-full h-full pointer-events-none min-w-[320px]"
+            className="absolute inset-0 w-full h-full pointer-events-none"
             fill="none"
           >
             <defs>
@@ -397,20 +397,20 @@ export function FuturisticGovernanceOrb() {
           </svg>
 
           {/* Left Column: Model Endpoints */}
-          <div className="relative z-10 flex flex-col gap-4 sm:gap-6 w-28 sm:w-36 md:w-44 lg:w-48 xl:w-52 shrink-0">
+          <div className="relative z-10 flex flex-col gap-3 sm:gap-6 w-[86px] sm:w-36 md:w-44 lg:w-48 xl:w-52 shrink-0">
             {[
-              { tag: "VPC", name: "vLLM / Llama-3" },
+              { tag: "VPC", name: "vLLM / Llama" },
               { tag: "API", name: "OpenAI / Claude" },
               { tag: "HF", name: "Custom Weights" },
             ].map((node) => (
               <div
                 key={node.name}
-                className="py-2.5 border-b border-white/20 flex items-center gap-2.5 bg-[#06070b]/80 backdrop-blur-sm"
+                className="py-1.5 sm:py-2.5 border-b border-white/20 flex items-center gap-1.5 sm:gap-2.5 bg-[#06070b]/80 backdrop-blur-sm"
               >
-                <span className="font-mono text-[10px] sm:text-[11px] lg:text-[12px] font-bold text-purple-300">
+                <span className="font-mono text-[9px] sm:text-[11px] lg:text-[12px] font-bold text-purple-300">
                   {node.tag}
                 </span>
-                <span className="text-[12.5px] sm:text-[14px] lg:text-[15px] font-semibold text-white truncate">
+                <span className="text-[11px] sm:text-[14px] lg:text-[15px] font-semibold text-white truncate">
                   {node.name}
                 </span>
               </div>
@@ -418,33 +418,33 @@ export function FuturisticGovernanceOrb() {
           </div>
 
           {/* Center Core: Ethica Orbital Engine */}
-          <div className="relative z-10 flex items-center justify-center shrink-0 px-2">
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40 rounded-full bg-[#07090e] border border-purple-300/40 shadow-[0_0_60px_rgba(192,132,252,0.22)] flex flex-col items-center justify-center text-center">
-              <div className="futuristic-ring w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 border-dashed border-purple-300/30" />
-              <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-mono uppercase tracking-widest text-purple-200/80">
+          <div className="relative z-10 flex items-center justify-center shrink-0 px-1 sm:px-2">
+            <div className="relative w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40 rounded-full bg-[#07090e] border border-purple-300/40 shadow-[0_0_60px_rgba(192,132,252,0.22)] flex flex-col items-center justify-center text-center">
+              <div className="futuristic-ring w-24 h-24 sm:w-36 sm:h-36 lg:w-44 lg:h-44 border-dashed border-purple-300/30" />
+              <span className="text-[8.5px] sm:text-[10px] lg:text-[11px] font-mono uppercase tracking-widest text-purple-200/80">
                 ETHICA CORE
               </span>
-              <span className="text-xl sm:text-2xl lg:text-3xl font-mono font-extrabold text-white mt-0.5">
+              <span className="text-lg sm:text-2xl lg:text-3xl font-mono font-extrabold text-white mt-0.5">
                 0.914
               </span>
-              <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-mono text-purple-300 font-bold">
+              <span className="text-[8.5px] sm:text-[10px] lg:text-[11px] font-mono text-purple-300 font-bold">
                 15 JUDGES
               </span>
             </div>
           </div>
 
           {/* Right Column: Statutory Attestations */}
-          <div className="relative z-10 flex flex-col gap-4 sm:gap-6 w-28 sm:w-36 md:w-44 lg:w-48 xl:w-52 text-right shrink-0">
+          <div className="relative z-10 flex flex-col gap-3 sm:gap-6 w-[86px] sm:w-36 md:w-44 lg:w-48 xl:w-52 text-right shrink-0">
             {[
-              { code: "EU AI", label: "Art. 9–15 Dossier" },
-              { code: "NIST", label: "AI RMF 1.0 Map" },
-              { code: "ISO", label: "42001 Certificate" },
+              { code: "EU AI", label: "Art. 9–15" },
+              { code: "NIST", label: "AI RMF 1.0" },
+              { code: "ISO", label: "42001 Seal" },
             ].map((out) => (
               <div
                 key={out.code}
-                className="py-2.5 border-b border-white/20 flex items-center justify-end gap-2.5 bg-[#06070b]/80 backdrop-blur-sm"
+                className="py-1.5 sm:py-2.5 border-b border-white/20 flex items-center justify-end gap-1.5 sm:gap-2.5 bg-[#06070b]/80 backdrop-blur-sm"
               >
-                <span className="text-[12.5px] sm:text-[14px] lg:text-[15px] font-semibold text-white truncate">
+                <span className="text-[11px] sm:text-[14px] lg:text-[15px] font-semibold text-white truncate">
                   {out.label}
                 </span>
               </div>
