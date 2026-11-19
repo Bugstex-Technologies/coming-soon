@@ -47,46 +47,59 @@ const FloatingDockMobile = ({
     <div className={cn("relative block md:hidden", className)}>
       <AnimatePresence>
         {open && (
-          <motion.div
-            layoutId="nav"
-            className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2"
-          >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                <a
-                  href={item.href}
+          <>
+            {/* Backdrop for easy dismiss on mobile touch */}
+            <div
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-[2px]"
+              onClick={() => setOpen(false)}
+            />
+            <motion.div
+              layoutId="nav"
+              className="absolute right-0 bottom-full mb-3 z-50 flex flex-col items-end gap-2 max-h-[70vh] overflow-y-auto pr-1 no-scrollbar"
+            >
+              {items.map((item, idx) => (
+                <motion.div
                   key={item.title}
-                  onClick={() => setOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
+                  initial={{ opacity: 0, x: 18, scale: 0.92 }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    x: 12,
+                    scale: 0.92,
+                    transition: {
+                      delay: idx * 0.03,
+                    },
+                  }}
+                  transition={{ delay: (items.length - 1 - idx) * 0.03 }}
                 >
-                  <div className="h-4 w-4">{item.icon}</div>
-                </a>
-              </motion.div>
-            ))}
-          </motion.div>
+                  <a
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-3 px-4 py-2.5 rounded-full bg-neutral-900/95 border border-white/20 backdrop-blur-xl shadow-[0_8px_24px_rgba(0,0,0,0.85)] active:scale-95 transition-transform"
+                  >
+                    <span className="text-[13px] font-semibold text-white whitespace-nowrap">
+                      {item.title}
+                    </span>
+                    <div className="h-4 w-4 text-purple-200 shrink-0">
+                      {item.icon}
+                    </div>
+                  </a>
+                </motion.div>
+              ))}
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
       <button
         onClick={() => setOpen(!open)}
         aria-label="Toggle navigation dock"
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800"
+        className="relative z-50 flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 border border-white/25 shadow-[0_10px_28px_rgba(0,0,0,0.7)] active:scale-95 transition-all text-white"
       >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
+        <IconLayoutNavbarCollapse className="h-5 w-5 text-white" />
       </button>
     </div>
   );

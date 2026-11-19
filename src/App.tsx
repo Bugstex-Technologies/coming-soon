@@ -43,13 +43,13 @@ export default function App() {
             </span>
           </div>
 
-          <div className="global-nav__actions">
+          <div className="global-nav__actions gap-2 sm:gap-3">
             <button
               type="button"
               onClick={() =>
                 setComingSoonTitle("Live Demo Console — Coming Soon")
               }
-              className="hidden xl:inline-flex items-center gap-2 rounded-xl border border-white/[0.16] bg-white/[0.05] px-4 py-2.5 font-mono text-[13px] font-semibold text-slate-100 hover:border-white/[0.3] hover:text-white"
+              className="hidden xl:inline-flex items-center gap-2 rounded-xl border border-white/[0.16] bg-white/[0.05] px-4 lg:px-5 py-2.5 font-mono text-[13px] lg:text-[14px] font-semibold text-slate-100 hover:border-white/[0.3] hover:text-white transition-colors"
             >
               <Terminal className="w-4 h-4" />
               Live Demo Console
@@ -60,7 +60,7 @@ export default function App() {
               onClick={() =>
                 setComingSoonTitle("Account Sign In — Coming Soon")
               }
-              className="rounded-xl border border-white/[0.16] bg-white/[0.05] px-4 py-2.5 text-[14px] font-semibold text-white hover:bg-white/[0.1]"
+              className="rounded-xl border border-white/[0.16] bg-white/[0.05] px-3 sm:px-4 lg:px-5 py-2 sm:py-2.5 text-[13px] sm:text-[14px] lg:text-[15px] font-semibold text-white hover:bg-white/[0.1] transition-colors"
             >
               Sign In
             </button>
@@ -70,7 +70,7 @@ export default function App() {
               onClick={() =>
                 setComingSoonTitle("Account Sign Up — Coming Soon")
               }
-              className="global-nav__new inline-flex"
+              className="global-nav__new inline-flex !px-4 sm:!px-5 lg:!px-6 !py-2 sm:!py-2.5 lg:!py-3 !text-[13px] sm:!text-[14px] lg:!text-[15px]"
             >
               Get Started <ArrowRight className="w-4 h-4" />
             </button>

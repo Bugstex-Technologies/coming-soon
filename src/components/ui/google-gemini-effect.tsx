@@ -19,8 +19,8 @@ export const GoogleGeminiEffect = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("sticky top-28", className)}>
-      <p className="text-3xl sm:text-5xl md:text-6xl font-extrabold pb-2 text-center bg-clip-text text-transparent bg-gradient-to-b from-white via-purple-100 to-purple-300 tracking-tight px-4">
+    <div className={cn("sticky top-16 sm:top-28", className)}>
+      <p className="text-2xl sm:text-5xl md:text-6xl font-extrabold pb-2 text-center bg-clip-text text-transparent bg-gradient-to-b from-white via-purple-100 to-purple-300 tracking-tight px-4 leading-tight">
         {title || `Every prompt is a legal boundary.`}
       </p>
       <p className="text-sm md:text-lg font-normal text-center text-neutral-400 mt-2 max-w-xl mx-auto px-4">

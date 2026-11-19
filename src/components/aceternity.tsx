@@ -190,7 +190,7 @@ export function AnimatedPillTabs<T extends string = string>({
 }) {
   return (
     <div
-      className={`inline-flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-2xl bg-white/[0.04] border border-white/[0.12] backdrop-blur-xl ${className}`}
+      className={`inline-flex flex-wrap items-center justify-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-2xl bg-white/[0.04] border border-white/[0.12] backdrop-blur-xl ${className}`}
     >
       {tabs.map((tab) => {
         const active = tab.id === activeTab;
@@ -199,7 +199,7 @@ export function AnimatedPillTabs<T extends string = string>({
             key={tab.id}
             type="button"
             onClick={() => onChange(tab.id)}
-            className={`relative px-4 py-2.5 rounded-xl text-[15px] font-semibold transition-colors duration-200 flex items-center gap-2.5 ${
+            className={`relative px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-[13px] sm:text-[15px] font-semibold transition-colors duration-200 flex items-center gap-1.5 sm:gap-2.5 ${
               active ? "text-slate-950" : "text-slate-200 hover:text-white"
             }`}
           >
@@ -214,7 +214,7 @@ export function AnimatedPillTabs<T extends string = string>({
             <span className="relative z-10">{tab.label}</span>
             {tab.badge !== undefined && (
               <span
-                className={`relative z-10 px-2 py-0.5 rounded-md text-[12px] font-mono font-bold ${
+                className={`relative z-10 px-1.5 sm:px-2 py-0.5 rounded-md text-[11px] sm:text-[12px] font-mono font-bold ${
                   active
                     ? "bg-slate-950/15 text-slate-950"
                     : "bg-white/[0.08] text-slate-200 border border-white/[0.12]"
@@ -308,10 +308,10 @@ export function FuturisticGovernanceOrb() {
         </div>
 
         {/* SVG Animated Laser Beam Diagram */}
-        <div className="relative my-8 py-4 flex items-center justify-between">
+        <div className="relative my-6 sm:my-8 py-4 flex items-center justify-between overflow-x-auto no-scrollbar min-w-0">
           <svg
             viewBox="0 0 600 240"
-            className="absolute inset-0 w-full h-full pointer-events-none"
+            className="absolute inset-0 w-full h-full pointer-events-none min-w-[320px]"
             fill="none"
           >
             <defs>
@@ -397,7 +397,7 @@ export function FuturisticGovernanceOrb() {
           </svg>
 
           {/* Left Column: Model Endpoints */}
-          <div className="relative z-10 flex flex-col gap-6 w-36 sm:w-44">
+          <div className="relative z-10 flex flex-col gap-4 sm:gap-6 w-28 sm:w-36 md:w-44 lg:w-48 xl:w-52 shrink-0">
             {[
               { tag: "VPC", name: "vLLM / Llama-3" },
               { tag: "API", name: "OpenAI / Claude" },
@@ -405,12 +405,12 @@ export function FuturisticGovernanceOrb() {
             ].map((node) => (
               <div
                 key={node.name}
-                className="py-2 border-b border-white/20 flex items-center gap-2.5 bg-[#06070b]/80 backdrop-blur-sm"
+                className="py-2.5 border-b border-white/20 flex items-center gap-2.5 bg-[#06070b]/80 backdrop-blur-sm"
               >
-                <span className="font-mono text-[11px] font-bold text-purple-300">
+                <span className="font-mono text-[10px] sm:text-[11px] lg:text-[12px] font-bold text-purple-300">
                   {node.tag}
                 </span>
-                <span className="text-[14px] font-semibold text-white truncate">
+                <span className="text-[12.5px] sm:text-[14px] lg:text-[15px] font-semibold text-white truncate">
                   {node.name}
                 </span>
               </div>
@@ -418,23 +418,23 @@ export function FuturisticGovernanceOrb() {
           </div>
 
           {/* Center Core: Ethica Orbital Engine */}
-          <div className="relative z-10 flex items-center justify-center">
-            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-[#07090e] border border-purple-300/40 shadow-[0_0_60px_rgba(192,132,252,0.22)] flex flex-col items-center justify-center text-center">
-              <div className="futuristic-ring w-36 h-36 border-dashed border-purple-300/30" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-purple-200/80">
+          <div className="relative z-10 flex items-center justify-center shrink-0 px-2">
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40 rounded-full bg-[#07090e] border border-purple-300/40 shadow-[0_0_60px_rgba(192,132,252,0.22)] flex flex-col items-center justify-center text-center">
+              <div className="futuristic-ring w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 border-dashed border-purple-300/30" />
+              <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-mono uppercase tracking-widest text-purple-200/80">
                 ETHICA CORE
               </span>
-              <span className="text-2xl font-mono font-extrabold text-white mt-0.5">
+              <span className="text-xl sm:text-2xl lg:text-3xl font-mono font-extrabold text-white mt-0.5">
                 0.914
               </span>
-              <span className="text-[10px] font-mono text-purple-300 font-bold">
+              <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-mono text-purple-300 font-bold">
                 15 JUDGES
               </span>
             </div>
           </div>
 
           {/* Right Column: Statutory Attestations */}
-          <div className="relative z-10 flex flex-col gap-6 w-36 sm:w-44 text-right">
+          <div className="relative z-10 flex flex-col gap-4 sm:gap-6 w-28 sm:w-36 md:w-44 lg:w-48 xl:w-52 text-right shrink-0">
             {[
               { code: "EU AI", label: "Art. 9–15 Dossier" },
               { code: "NIST", label: "AI RMF 1.0 Map" },
@@ -442,9 +442,9 @@ export function FuturisticGovernanceOrb() {
             ].map((out) => (
               <div
                 key={out.code}
-                className="py-2 border-b border-white/20 flex items-center justify-end gap-2.5 bg-[#06070b]/80 backdrop-blur-sm"
+                className="py-2.5 border-b border-white/20 flex items-center justify-end gap-2.5 bg-[#06070b]/80 backdrop-blur-sm"
               >
-                <span className="text-[14px] font-semibold text-white truncate">
+                <span className="text-[12.5px] sm:text-[14px] lg:text-[15px] font-semibold text-white truncate">
                   {out.label}
                 </span>
               </div>
@@ -543,7 +543,7 @@ export function AnimatedBeamPipeline() {
               key={st.step}
               type="button"
               onClick={() => setActiveNode(idx)}
-              className={`text-left py-6 px-6 transition-all duration-200 relative flex flex-col justify-between ${
+              className={`text-left py-6 lg:py-8 px-6 lg:px-8 transition-all duration-200 relative flex flex-col justify-between ${
                 isSelected ? "bg-white/[0.03]" : "hover:bg-white/[0.015] opacity-65 hover:opacity-100"
               }`}
             >
@@ -553,14 +553,14 @@ export function AnimatedBeamPipeline() {
                   className="absolute top-0 left-0 right-0 h-[2px] bg-purple-400 shadow-[0_0_12px_rgba(192,132,252,0.6)]"
                 />
               )}
-              <div className="text-[12px] font-mono font-bold tracking-widest text-purple-300 mb-3">
+              <div className="text-[12px] sm:text-[13px] font-mono font-bold tracking-widest text-purple-300 mb-3">
                 {st.step}
               </div>
               <div>
-                <div className="text-[18px] font-extrabold tracking-tight text-white">
+                <div className="text-[18px] sm:text-[20px] lg:text-[22px] font-extrabold tracking-tight text-white">
                   {st.title}
                 </div>
-                <div className="text-[13.5px] mt-1 font-medium text-slate-400">
+                <div className="text-[13.5px] sm:text-[14.5px] lg:text-[15px] mt-1 font-medium text-slate-400">
                   {st.subtitle}
                 </div>
               </div>
@@ -576,21 +576,21 @@ export function AnimatedBeamPipeline() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.2 }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-center"
         >
-          <div className="lg:col-span-8 space-y-2">
-            <h4 className="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">
+          <div className="lg:col-span-8 space-y-3">
+            <h4 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
               {stages[activeNode].title}
             </h4>
-            <p className="text-[17px] text-slate-300 leading-relaxed max-w-2xl">
+            <p className="text-[17px] sm:text-[19px] lg:text-[20px] text-slate-300 leading-relaxed max-w-3xl">
               {stages[activeNode].detail}
             </p>
           </div>
           <div className="lg:col-span-4 divide-y divide-white/[0.1] border-y border-white/[0.1]">
             {stages[activeNode].metrics.map((m) => (
-              <div key={m} className="py-3.5 flex items-center justify-between">
-                <span className="text-[15px] font-semibold text-white">{m}</span>
-                <span className="text-[11px] font-mono font-bold text-purple-300 uppercase tracking-wider">
+              <div key={m} className="py-4 flex items-center justify-between">
+                <span className="text-[15px] sm:text-[17px] font-semibold text-white">{m}</span>
+                <span className="text-[11px] sm:text-[12px] font-mono font-bold text-purple-300 uppercase tracking-wider">
                   VERIFIED
                 </span>
               </div>
@@ -739,13 +739,13 @@ export function InteractiveScenarioSandbox() {
         </div>
       </div>
 
-      <div className="py-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div className="py-10 grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16 items-start">
         <div className="lg:col-span-7 space-y-6">
           <div>
-            <div className="text-[11px] font-mono uppercase tracking-widest text-slate-400 mb-1.5">
+            <div className="text-[11px] sm:text-[12px] font-mono uppercase tracking-widest text-slate-400 mb-2">
               BASE DILEMMA
             </div>
-            <p className="text-[18px] text-white font-semibold leading-relaxed">
+            <p className="text-[18px] sm:text-[20px] lg:text-[22px] text-white font-semibold leading-relaxed">
               “{scenario.basePrompt}”
             </p>
           </div>
@@ -759,19 +759,19 @@ export function InteractiveScenarioSandbox() {
               transition={{ duration: 0.18 }}
               className="divide-y divide-white/[0.09] border-y border-white/[0.09]"
             >
-              <div className="py-4">
-                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+              <div className="py-5">
+                <div className="text-[11px] sm:text-[12px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
                   INJECTED PERTURBATION
                 </div>
-                <p className="text-[15px] text-slate-200 font-mono leading-relaxed">
+                <p className="text-[15px] sm:text-[16.5px] text-slate-200 font-mono leading-relaxed">
                   {activePerturbation.prompt}
                 </p>
               </div>
-              <div className="py-4">
-                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+              <div className="py-5">
+                <div className="text-[11px] sm:text-[12px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
                   AUDITED RESPONSE
                 </div>
-                <p className="text-[15.5px] text-white leading-relaxed">
+                <p className="text-[15.5px] sm:text-[17.5px] text-white leading-relaxed">
                   {activePerturbation.response}
                 </p>
               </div>
@@ -779,17 +779,17 @@ export function InteractiveScenarioSandbox() {
           </AnimatePresence>
         </div>
 
-        <div className="lg:col-span-5 lg:pl-10 lg:border-l border-white/[0.09] space-y-6">
+        <div className="lg:col-span-5 lg:pl-10 xl:pl-12 lg:border-l border-white/[0.09] space-y-7">
           <div className="flex items-center justify-between pb-4 border-b border-white/[0.09]">
-            <span className="text-[16px] font-bold text-white">
+            <span className="text-[16px] sm:text-[18px] font-bold text-white">
               69-Signal Verdict
             </span>
-            <span className="text-[12px] font-mono font-bold text-purple-300 uppercase tracking-widest">
+            <span className="text-[12px] sm:text-[13px] font-mono font-bold text-purple-300 uppercase tracking-widest">
               {activePerturbation.verdict}
             </span>
           </div>
 
-          <div className="space-y-5">
+          <div className="space-y-6">
             {[
               {
                 label: "Ethical Principle Index (EPI)",
@@ -805,13 +805,13 @@ export function InteractiveScenarioSandbox() {
               },
             ].map((metric) => (
               <div key={metric.label} className="space-y-2">
-                <div className="flex items-center justify-between text-[14.5px]">
+                <div className="flex items-center justify-between text-[14.5px] sm:text-[16px]">
                   <span className="font-medium text-slate-200">{metric.label}</span>
-                  <span className="font-mono font-bold text-white">
+                  <span className="font-mono font-bold text-white text-[15px] sm:text-[17px]">
                     {(metric.val * 100).toFixed(0)}%
                   </span>
                 </div>
-                <div className="w-full h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
+                <div className="w-full h-2 rounded-full bg-white/[0.08] overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${metric.val * 100}%` }}
@@ -996,36 +996,36 @@ export function PricingMatrix({
           return (
             <div
               key={plan.planKey || plan.name}
-              className={`py-10 px-6 lg:px-7 flex flex-col justify-between space-y-8 ${
+              className={`py-10 lg:py-12 px-6 lg:px-8 xl:px-9 flex flex-col justify-between space-y-8 ${
                 plan.highlighted ? "bg-purple-500/[0.04]" : ""
               }`}
             >
               <div className="space-y-5">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="text-xl font-bold text-white tracking-tight">
+                  <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                     {plan.name}
                   </span>
                   {plan.badge && (
-                    <span className="text-[10.5px] font-mono font-bold uppercase tracking-widest text-purple-300">
+                    <span className="text-[10.5px] sm:text-[11px] font-mono font-bold uppercase tracking-widest text-purple-300">
                       {plan.badge}
                     </span>
                   )}
                 </div>
 
                 <div className="flex items-baseline gap-1.5 flex-wrap">
-                  <span className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight font-mono">
+                  <span className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-mono">
                     {price}
                   </span>
-                  <span className="text-[13.5px] text-slate-400 font-medium">
+                  <span className="text-[13.5px] sm:text-[15px] text-slate-400 font-medium">
                     {plan.periodLabel || "/ mo"}
                   </span>
                 </div>
 
-                <p className="text-[14.5px] text-slate-300 leading-relaxed">
+                <p className="text-[14.5px] sm:text-[15.5px] text-slate-300 leading-relaxed">
                   {plan.tagline}
                 </p>
 
-                <div className="py-3 border-y border-white/[0.08] text-[12.5px] font-mono text-slate-300 flex items-center justify-between gap-2">
+                <div className="py-3.5 border-y border-white/[0.08] text-[13px] sm:text-[13.5px] font-mono text-slate-300 flex items-center justify-between gap-2">
                   <span className="text-white font-semibold">
                     {plan.scenarioCap}
                   </span>
@@ -1034,11 +1034,11 @@ export function PricingMatrix({
                   </span>
                 </div>
 
-                <ul className="space-y-2.5 pt-1">
+                <ul className="space-y-3 pt-1">
                   {plan.features.map((feat) => (
                     <li
                       key={feat}
-                      className="flex items-start gap-2.5 text-[14px] text-slate-200 leading-snug"
+                      className="flex items-start gap-2.5 text-[14px] sm:text-[15px] text-slate-200 leading-snug"
                     >
                       <span className="text-purple-300 font-mono shrink-0">
                         —
@@ -1052,12 +1052,12 @@ export function PricingMatrix({
               <button
                 type="button"
                 onClick={() => onSelectPlan(plan, cycleForPlan, currency)}
-                className={`w-full py-3.5 px-5 rounded-full text-[14.5px] font-bold transition-all ${
+                className={`w-full py-4 px-5 rounded-full text-[14.5px] sm:text-[15.5px] font-bold transition-all ${
                   isCurrent
                     ? "bg-white/15 text-white border border-white/30"
                     : plan.highlighted
-                    ? "bg-white text-slate-950 hover:bg-slate-100 shadow-[0_10px_30px_rgba(255,255,255,0.2)]"
-                    : "bg-white/[0.06] text-white border border-white/[0.16] hover:bg-white/[0.12]"
+                    ? "bg-white text-slate-950 hover:bg-slate-100 shadow-[0_10px_30px_rgba(255,255,255,0.2)] active:scale-[0.98]"
+                    : "bg-white/[0.06] text-white border border-white/[0.16] hover:bg-white/[0.12] active:scale-[0.98]"
                 }`}
               >
                 {isCurrent
@@ -1122,10 +1122,10 @@ export function SubscriptionCheckoutModal({
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-xl overflow-y-auto"
     >
-      <div onClick={(e) => e.stopPropagation()} className="w-full max-w-xl">
-        <BorderBeamCard className="w-full" innerClassName="p-7 lg:p-9">
+      <div onClick={(e) => e.stopPropagation()} className="w-full max-w-xl my-auto max-h-[92dvh] overflow-y-auto rounded-2xl no-scrollbar">
+        <BorderBeamCard className="w-full" innerClassName="p-5 sm:p-7 lg:p-9">
           <div className="flex items-start justify-between gap-4 pb-5 mb-6 border-b border-white/[0.12]">
             <div>
               <div className="inline-flex items-center px-3 py-1 rounded-full bg-purple-500/[0.12] border border-purple-400/30 text-[11px] font-mono font-bold uppercase tracking-widest text-purple-300">

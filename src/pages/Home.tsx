@@ -218,15 +218,15 @@ function SectionHeader({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.4 }}
-      className="text-center max-w-3xl mx-auto space-y-3"
+      className="text-center max-w-4xl mx-auto space-y-3 sm:space-y-4"
     >
-      <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-[-0.03em] leading-[1.08]">
+      <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-[-0.03em] leading-[1.08]">
         {title}{" "}
         <span className="text-gradient-metallic block sm:inline">
           {highlight}
         </span>
       </h2>
-      <p className="text-[16.5px] sm:text-[18px] text-slate-300 leading-relaxed max-w-2xl mx-auto">
+      <p className="text-[16.5px] sm:text-[19px] lg:text-[21px] text-slate-300 leading-relaxed max-w-3xl mx-auto">
         {description}
       </p>
     </motion.div>
@@ -364,27 +364,27 @@ export default function Home({
           }}
         />
 
-        <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-10 pt-16 pb-16 lg:pt-24 lg:pb-20 border-x border-white/[0.07]">
+        <div className="relative z-10 max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 pt-16 pb-16 lg:pt-24 lg:pb-24 xl:pt-28 xl:pb-28 border-x border-white/[0.07]">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-center max-w-4xl mx-auto space-y-6"
+            className="text-center max-w-5xl mx-auto space-y-6 sm:space-y-7"
           >
-            <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-extrabold tracking-[-0.04em] leading-[1.04] text-white">
+            <h1 className="text-3xl sm:text-6xl lg:text-7xl xl:text-[80px] font-extrabold tracking-[-0.04em] leading-[1.06] sm:leading-[1.02] text-white">
               <TextGenerateEffect words="AI is shipping faster than you can govern it." />
-              <span className="block mt-2 text-gradient-metallic">
+              <span className="block mt-2 sm:mt-3 text-gradient-metallic">
                 Prove compliance before regulators ask.
               </span>
             </h1>
 
-            <p className="text-[17px] sm:text-[20px] text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
+            <p className="text-[17px] sm:text-[20px] lg:text-[22px] text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
               Stress-test models across 10,000 ethical dilemmas and 8
               counterfactual framing modes. Issue signed EU AI Act & ISO 42001
               certificates inside your VPC.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-5 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-5 pt-3">
               <button
                 type="button"
                 onClick={() => {
@@ -394,27 +394,27 @@ export default function Home({
                     setComingSoonTitle("Live Evaluation Audit — Coming Soon");
                   }
                 }}
-                className="px-8 py-4 rounded-full bg-white text-slate-950 text-[16px] font-extrabold tracking-tight hover:bg-slate-100 transition-all shadow-[0_12px_36px_rgba(255,255,255,0.22)]"
+                className="px-8 sm:px-10 py-4 sm:py-5 rounded-full bg-white text-slate-950 text-[16px] sm:text-[17.5px] font-extrabold tracking-tight hover:bg-slate-100 transition-all shadow-[0_12px_36px_rgba(255,255,255,0.22)] active:scale-[0.98]"
               >
                 Start Free EU AI Act Audit →
               </button>
               <a
                 href="#sandbox"
-                className="px-5 py-4 text-slate-200 hover:text-white text-[16px] font-semibold transition-colors underline underline-offset-8 decoration-white/30 hover:decoration-white"
+                className="px-6 py-4 text-slate-200 hover:text-white text-[16px] sm:text-[17.5px] font-semibold transition-colors underline underline-offset-8 decoration-white/30 hover:decoration-white"
               >
                 Explore Live Sandbox
               </a>
             </div>
 
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-4 text-[13.5px] font-mono text-slate-400">
-              <span>
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-[12.5px] sm:text-[14px] font-mono text-slate-400 max-w-full px-2">
+              <span className="break-all sm:break-normal text-center sm:text-left bg-white/[0.04] px-4 py-2 rounded-xl border border-white/[0.1] max-w-full">
                 <span className="text-purple-300 mr-2">$</span>
                 python ethica_runner.py --model llama-3-70b --profile eu-ai-act
               </span>
               <button
                 type="button"
                 onClick={handleCopyCli}
-                className="text-[12px] font-mono font-bold text-purple-300 hover:text-white uppercase tracking-widest underline underline-offset-4"
+                className="text-[12.5px] sm:text-[13px] font-mono font-bold text-purple-300 hover:text-white uppercase tracking-widest underline underline-offset-4 py-1"
               >
                 {copiedCli ? "[COPIED]" : "[COPY CLI]"}
               </button>
@@ -422,7 +422,7 @@ export default function Home({
           </motion.div>
 
           {/* Compact 4-Column Metric Strip */}
-          <div className="mt-16 pt-10 border-t border-white/[0.09] grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x divide-white/[0.09]">
+          <div className="mt-16 sm:mt-24 pt-10 sm:pt-14 border-t border-white/[0.09] grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x divide-white/[0.09]">
             {[
               {
                 stat: "€35M / 7%",
@@ -451,15 +451,15 @@ export default function Home({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: idx * 0.05 }}
-                className="lg:px-8 first:lg:pl-0 last:lg:pr-0 space-y-1"
+                className="lg:px-8 xl:px-10 first:lg:pl-0 last:lg:pr-0 space-y-1.5"
               >
-                <div className="text-3xl lg:text-4xl font-mono font-extrabold text-white tracking-tight">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-mono font-extrabold text-white tracking-tight">
                   {item.stat}
                 </div>
-                <div className="text-[15px] font-bold text-purple-200">
+                <div className="text-[15px] sm:text-[17px] font-bold text-purple-200">
                   {item.title}
                 </div>
-                <p className="text-[13.5px] text-slate-400 leading-snug">
+                <p className="text-[13.5px] sm:text-[15px] text-slate-400 leading-snug">
                   {item.desc}
                 </p>
               </motion.div>
@@ -481,7 +481,7 @@ export default function Home({
        * 3. WHY ETHICA (Open 2x2 Hairline Layout — Concise Copy, Monochrome)
        * =================================================================== */}
       <section id="why-ethica" className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-14">
+        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-16">
           <SectionHeader
             title="Self-reported checklists are dead."
             highlight="Regulators demand cryptographic proof."
@@ -494,14 +494,14 @@ export default function Home({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="py-12 px-6 sm:px-12 rounded-2xl bg-[#040508] border border-white/[0.09] flex flex-col items-center justify-center text-center"
+            className="py-14 px-6 sm:px-12 rounded-2xl bg-[#040508] border border-white/[0.09] flex flex-col items-center justify-center text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
           >
             <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-14">
               <div className="flex items-center gap-4">
-                <span className="text-5xl sm:text-6xl font-extrabold text-white tracking-tight">
+                <span className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight">
                   60%
                 </span>
-                <span className="text-left text-[15px] sm:text-[16px] text-slate-300 leading-snug font-medium">
+                <span className="text-left text-[15px] sm:text-[17px] lg:text-[18px] text-slate-300 leading-snug font-medium">
                   of enterprises
                   <br />
                   are scaling AI
@@ -511,13 +511,13 @@ export default function Home({
               <div className="hidden sm:block w-[1px] h-14 bg-white/[0.12]" />
 
               <div className="flex items-center gap-4">
-                <span className="text-[15px] sm:text-[16px] text-slate-300 font-medium">
+                <span className="text-[15px] sm:text-[17px] text-slate-300 font-medium">
                   Only
                 </span>
-                <span className="text-5xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-b from-[#e9d5ff] to-[#c084fc] bg-clip-text text-transparent">
+                <span className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight bg-gradient-to-b from-[#e9d5ff] to-[#c084fc] bg-clip-text text-transparent">
                   4%
                 </span>
-                <span className="text-[15px] sm:text-[16px] text-slate-300 font-medium">
+                <span className="text-[15px] sm:text-[17px] text-slate-300 font-medium">
                   are governing it.
                 </span>
               </div>
@@ -532,41 +532,41 @@ export default function Home({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.35, delay: idx * 0.06 }}
-                className={`py-10 lg:py-12 border-b border-white/[0.09] flex flex-col justify-between space-y-6 ${
+                className={`py-12 lg:py-16 border-b border-white/[0.09] flex flex-col justify-between space-y-7 ${
                   idx % 2 === 0
-                    ? "lg:pr-12 lg:border-r lg:border-white/[0.09]"
-                    : "lg:pl-12"
+                    ? "lg:pr-14 lg:border-r lg:border-white/[0.09]"
+                    : "lg:pl-14"
                 }`}
               >
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div className="flex items-baseline justify-between gap-4">
-                    <span className="text-[12px] font-mono font-bold uppercase tracking-[0.16em] text-purple-300">
+                    <span className="text-[12px] sm:text-[13px] font-mono font-bold uppercase tracking-[0.16em] text-purple-300">
                       {pillar.tag}
                     </span>
                     <div className="text-right">
-                      <span className="text-3xl font-mono font-extrabold text-white tracking-tight">
+                      <span className="text-3xl sm:text-4xl lg:text-5xl font-mono font-extrabold text-white tracking-tight">
                         {pillar.headlineMetric}
                       </span>
-                      <span className="block text-[11.5px] font-mono text-slate-400">
+                      <span className="block text-[11.5px] sm:text-[13px] font-mono text-slate-400">
                         {pillar.headlineSub}
                       </span>
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-extrabold text-white tracking-tight">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                     {pillar.title}
                   </h3>
 
-                  <p className="text-[15.5px] text-slate-300 leading-relaxed">
+                  <p className="text-[15.5px] sm:text-[17px] text-slate-300 leading-relaxed">
                     {pillar.description}
                   </p>
                 </div>
 
-                <div className="space-y-2 pt-1">
+                <div className="space-y-2.5 pt-1">
                   {pillar.bullets.map((b) => (
                     <div
                       key={b}
-                      className="flex items-start gap-2.5 text-[14.5px] text-slate-200 font-medium"
+                      className="flex items-start gap-3 text-[14.5px] sm:text-[16px] text-slate-200 font-medium"
                     >
                       <span className="text-purple-300 font-mono">—</span>
                       <span>{b}</span>
@@ -583,7 +583,7 @@ export default function Home({
        * 4. TELEMETRY TOPOLOGY (Open Layout)
        * =================================================================== */}
       <section className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-12">
+        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-16">
           <SectionHeader
             title="Don’t just hope your AI is compliant."
             highlight="Verify every decision boundary."
@@ -605,7 +605,7 @@ export default function Home({
        * 5. REGULATORY CROSSWALK (Unboxed, Direct & Concise)
        * =================================================================== */}
       <section id="regulatory-crosswalk" className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-12">
+        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-16">
           <SectionHeader
             title="One evaluation run."
             highlight="Instant global compliance."
@@ -643,19 +643,19 @@ export default function Home({
               className="space-y-10 pt-2"
             >
               <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-white/[0.1]">
-                <div className="space-y-2 max-w-2xl">
-                  <h3 className="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">
+                <div className="space-y-3 max-w-3xl">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                     {fw.title}
                   </h3>
-                  <p className="text-[16px] text-slate-300 leading-relaxed">
+                  <p className="text-[16px] sm:text-[18px] text-slate-300 leading-relaxed">
                     {fw.summary}
                   </p>
                 </div>
                 <div className="lg:text-right shrink-0">
-                  <div className="text-[11px] font-mono uppercase tracking-[0.16em] text-slate-400">
+                  <div className="text-[12px] font-mono uppercase tracking-[0.16em] text-slate-400">
                     STATUTORY EXPOSURE
                   </div>
-                  <div className="text-lg font-bold text-white mt-0.5">
+                  <div className="text-xl font-bold text-white mt-0.5">
                     {fw.penalty}
                   </div>
                 </div>
@@ -665,33 +665,33 @@ export default function Home({
                 {fw.controls.map((ctrl, idx) => (
                   <div
                     key={ctrl.code}
-                    className={`py-8 border-b border-white/[0.09] flex flex-col justify-between space-y-3 ${
+                    className={`py-8 sm:py-10 border-b border-white/[0.09] flex flex-col justify-between space-y-4 ${
                       idx % 2 === 0
-                        ? "md:pr-10 md:border-r md:border-white/[0.09]"
-                        : "md:pl-10"
+                        ? "md:pr-12 md:border-r md:border-white/[0.09]"
+                        : "md:pl-12"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2.5">
-                        <span className="font-mono font-bold text-[13px] text-purple-300 uppercase tracking-wider">
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono font-bold text-[13.5px] sm:text-[14.5px] text-purple-300 uppercase tracking-wider">
                           {ctrl.code}
                         </span>
                         <span className="text-white/25">/</span>
-                        <h4 className="text-[18px] font-bold text-white tracking-tight">
+                        <h4 className="text-[18px] sm:text-[20px] font-bold text-white tracking-tight">
                           {ctrl.name}
                         </h4>
                       </div>
-                      <span className="text-[12px] font-mono font-semibold text-purple-200/80 shrink-0">
+                      <span className="text-[12px] sm:text-[13px] font-mono font-semibold text-purple-200/80 shrink-0">
                         {ctrl.metric}
                       </span>
                     </div>
 
-                    <p className="text-[14.5px] text-slate-300 leading-relaxed">
+                    <p className="text-[14.5px] sm:text-[16px] text-slate-300 leading-relaxed">
                       <strong className="text-white font-semibold">Mandate: </strong>
                       {ctrl.requirement}
                     </p>
 
-                    <div className="text-[14.5px] text-slate-200 leading-relaxed">
+                    <div className="text-[14.5px] sm:text-[16px] text-slate-200 leading-relaxed">
                       <strong className="text-purple-300 font-semibold">Proof: </strong>
                       {ctrl.ethicaEvidence}
                     </div>
@@ -707,7 +707,7 @@ export default function Home({
        * 6. INTERACTIVE PERTURBATION SANDBOX
        * =================================================================== */}
       <section id="sandbox" className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-10">
+        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-12">
           <SectionHeader
             title="Static benchmarks fail"
             highlight="under framing pressure."
@@ -729,7 +729,7 @@ export default function Home({
        * 7. 4-STAGE ZERO-TRUST ARCHITECTURE PIPELINE
        * =================================================================== */}
       <section id="architecture" className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-10">
+        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-12">
           <SectionHeader
             title="Built for air-gapped VPCs."
             highlight="Zero weight exfiltration."
@@ -751,13 +751,13 @@ export default function Home({
        * 8. PUBLIC SHA-256 CERTIFICATE REGISTRY (No Eyebrow, No Green Font)
        * =================================================================== */}
       <section id="verification" className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-6 space-y-4">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-[1.08]">
+        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16 items-start">
+            <div className="lg:col-span-6 space-y-5">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.08]">
                 Instant Certificate Verification.
               </h2>
-              <p className="text-[16px] text-slate-300 leading-relaxed">
+              <p className="text-[16px] sm:text-[18px] text-slate-300 leading-relaxed">
                 Verify any Ethica Certificate Serial against our SHA-256
                 registry to confirm EU AI Act & ISO 42001 compliance.
               </p>
@@ -771,19 +771,19 @@ export default function Home({
                   value={certQuery}
                   onChange={(e) => setCertQuery(e.target.value)}
                   placeholder="Enter Serial (e.g. BTX-ETH-2026-7E857159)"
-                  className="input-field font-mono flex-1"
+                  className="input-field font-mono flex-1 text-[15px] sm:text-[16px] py-3.5 px-4"
                 />
                 <button
                   type="submit"
                   disabled={certLoading}
-                  className="btn-primary shrink-0"
+                  className="btn-primary shrink-0 text-[15px] sm:text-[16px] py-3.5 px-7"
                 >
                   {certLoading ? "Verifying..." : "Verify Serial"}
                 </button>
               </form>
 
-              <div className="flex flex-wrap items-center gap-4 text-[13px] text-slate-400 pt-1">
-                <span className="font-mono uppercase text-[11.5px]">
+              <div className="flex flex-wrap items-center gap-4 text-[13px] sm:text-[14px] text-slate-400 pt-1">
+                <span className="font-mono uppercase text-[12px]">
                   Sample Serials:
                 </span>
                 {["BTX-ETH-2026-7E857159", "BTX-ETH-2026-44A10C2E"].map(
@@ -792,7 +792,7 @@ export default function Home({
                       key={sampleId}
                       type="button"
                       onClick={() => setCertQuery(sampleId)}
-                      className="font-mono text-white hover:text-slate-300 text-[12.5px] underline underline-offset-4"
+                      className="font-mono text-white hover:text-slate-300 text-[13px] sm:text-[14px] underline underline-offset-4"
                     >
                       {sampleId}
                     </button>
@@ -809,44 +809,44 @@ export default function Home({
               ) : (
                 certResult && (
                   <div className="divide-y divide-white/[0.1] border-y border-white/[0.1]">
-                    <div className="py-4 flex items-center justify-between">
+                    <div className="py-4.5 flex items-center justify-between">
                       <div>
-                        <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                        <div className="text-[11.5px] font-mono uppercase tracking-wider text-slate-400">
                           VERIFIED RECORD
                         </div>
-                        <div className="text-xl font-mono font-bold text-white mt-0.5">
+                        <div className="text-xl sm:text-2xl font-mono font-bold text-white mt-0.5">
                           {certResult.certificate_id}
                         </div>
                       </div>
-                      <span className="text-[11px] font-mono font-bold text-purple-300 uppercase tracking-widest">
+                      <span className="text-[11.5px] font-mono font-bold text-purple-300 uppercase tracking-widest">
                         AUTHENTICATED
                       </span>
                     </div>
 
-                    <div className="py-4 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="py-4.5 grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div>
-                        <div className="text-[11px] font-mono text-slate-400 uppercase">
+                        <div className="text-[11.5px] font-mono text-slate-400 uppercase">
                           AUDITED MODEL
                         </div>
-                        <div className="text-[17px] font-bold text-white mt-0.5 truncate">
+                        <div className="text-[17px] sm:text-[19px] font-bold text-white mt-0.5 truncate">
                           {certResult.model_name}
                         </div>
                       </div>
                       <div>
-                        <div className="text-[11px] font-mono text-slate-400 uppercase">
+                        <div className="text-[11.5px] font-mono text-slate-400 uppercase">
                           COMPOSITE EPI SCORE
                         </div>
-                        <div className="text-2xl font-mono font-extrabold text-purple-300 mt-0.5">
+                        <div className="text-2xl sm:text-3xl font-mono font-extrabold text-purple-300 mt-0.5">
                           {Number(certResult.epi_score || 0.914).toFixed(3)}
                         </div>
                       </div>
                     </div>
 
-                    <div className="py-4 space-y-1">
-                      <div className="text-[11px] font-mono text-slate-400 uppercase">
+                    <div className="py-4.5 space-y-1">
+                      <div className="text-[11.5px] font-mono text-slate-400 uppercase">
                         SHA-256 ARTIFACT DIGEST
                       </div>
-                      <div className="text-[13px] font-mono text-slate-300 break-all">
+                      <div className="text-[13px] sm:text-[14px] font-mono text-slate-300 break-all">
                         {certResult.sha256_hash}
                       </div>
                     </div>
@@ -862,7 +862,7 @@ export default function Home({
        * 9. PRICING MATRIX
        * =================================================================== */}
       <section id="pricing" className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-10">
+        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-12">
           <SectionHeader
             title="Start with 1 free evaluation."
             highlight="Scale to full pipeline compliance."
@@ -880,7 +880,7 @@ export default function Home({
        * 10. ABOUT BUGSTEX TECHNOLOGIES & EXECUTIVE LEADERSHIP
        * =================================================================== */}
       <section id="about" className="border-b border-white/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 lg:py-24 border-x border-white/[0.07] space-y-16">
+        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-20 lg:py-28 xl:py-32 border-x border-white/[0.07] space-y-16">
           {/* 01 // ORGANIZATION — About & Leadership */}
           <div className="space-y-10">
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-white/[0.09]">
@@ -888,17 +888,17 @@ export default function Home({
                 <div className="text-[12px] font-mono text-purple-300 uppercase tracking-[0.2em]">
                   01 // ORGANIZATION — BUGSTEX TECHNOLOGIES
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
                   About & Leadership
                 </h2>
               </div>
-              <p className="text-[15.5px] text-slate-400 leading-relaxed max-w-md">
+              <p className="text-[15.5px] sm:text-[17px] text-slate-400 leading-relaxed max-w-lg">
                 Engineered to establish an independent standard of trust between
                 model providers, enterprise operators, and global regulators.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
               {[
                 {
                   num: "01",
@@ -910,7 +910,7 @@ export default function Home({
                   num: "02",
                   tag: "EXECUTIVE LEADERSHIP",
                   name: "Vyankatesh Dawale",
-                  role: "Managing Director & CTO",
+                  role: "Founder, Director & CTO",
                 },
                 {
                   num: "03",
@@ -927,21 +927,21 @@ export default function Home({
               ].map((leader) => (
                 <div
                   key={leader.num}
-                  className="p-6 rounded-xl bg-[#07090e]/80 border border-white/[0.09] hover:border-purple-400/25 transition-colors flex flex-col justify-between space-y-8"
+                  className="p-6 sm:p-7 rounded-xl bg-[#07090e]/80 border border-white/[0.09] hover:border-purple-400/25 transition-colors flex flex-col justify-between space-y-8"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[12px] font-mono text-purple-300/70">
+                    <span className="text-[12.5px] sm:text-[13px] font-mono text-purple-300/70">
                       {leader.num}
                     </span>
-                    <span className="px-2.5 py-1 rounded bg-purple-500/[0.07] border border-purple-400/20 text-[10px] font-mono uppercase tracking-[0.14em] text-purple-200">
+                    <span className="px-2.5 py-1 rounded bg-purple-500/[0.07] border border-purple-400/20 text-[10.5px] sm:text-[11px] font-mono uppercase tracking-[0.14em] text-purple-200">
                       {leader.tag}
                     </span>
                   </div>
                   <div>
-                    <div className="text-[19px] font-bold text-white tracking-tight">
+                    <div className="text-[19px] sm:text-[21px] font-bold text-white tracking-tight">
                       {leader.name}
                     </div>
-                    <div className="text-[14px] text-slate-400 mt-1">
+                    <div className="text-[14px] sm:text-[15.5px] text-slate-400 mt-1.5">
                       {leader.role}
                     </div>
                   </div>
@@ -951,15 +951,15 @@ export default function Home({
           </div>
 
           {/* 02 // INQUIRIES & PARTNERSHIPS — Connect with our team */}
-          <div className="p-8 sm:p-10 rounded-2xl bg-[#07090e]/80 border border-white/[0.09] flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-            <div className="space-y-2 max-w-md">
+          <div className="p-6 sm:p-10 lg:p-12 rounded-2xl bg-[#07090e]/80 border border-white/[0.09] flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+            <div className="space-y-2 max-w-lg">
               <div className="text-[12px] font-mono text-purple-300 uppercase tracking-[0.2em]">
                 02 // INQUIRIES & PARTNERSHIPS
               </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Connect with our team.
               </h3>
-              <p className="text-[15px] text-slate-400 leading-relaxed pt-1">
+              <p className="text-[15px] sm:text-[17px] text-slate-400 leading-relaxed pt-1">
                 For enterprise pilot inquiries, institutional partnerships, or
                 early platform access.
               </p>
@@ -967,31 +967,31 @@ export default function Home({
 
             <div className="flex flex-col sm:flex-row gap-8 sm:gap-14">
               <div className="space-y-2">
-                <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
+                <div className="text-[11px] sm:text-[12px] font-mono uppercase tracking-[0.18em] text-slate-500">
                   ELECTRONIC MAIL
                 </div>
                 <a
                   href="mailto:bugstex.sales@gmail.com"
-                  className="block font-mono text-[15px] font-semibold text-white hover:text-slate-300 transition-colors"
+                  className="block font-mono text-[15px] sm:text-[17px] font-semibold text-white hover:text-slate-300 transition-colors py-1"
                 >
                   bugstex.sales@gmail.com
                 </a>
               </div>
 
               <div className="space-y-2">
-                <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
+                <div className="text-[11px] sm:text-[12px] font-mono uppercase tracking-[0.18em] text-slate-500">
                   DIRECT LINES
                 </div>
-                <div className="space-y-1 font-mono text-[15px] font-semibold text-white">
+                <div className="space-y-1 font-mono text-[15px] sm:text-[17px] font-semibold text-white">
                   <a
                     href="tel:+919370949163"
-                    className="block hover:text-slate-300 transition-colors"
+                    className="block hover:text-slate-300 transition-colors py-1"
                   >
                     +91 93709 49163
                   </a>
                   <a
                     href="tel:+919765006889"
-                    className="block hover:text-slate-300 transition-colors"
+                    className="block hover:text-slate-300 transition-colors py-1"
                   >
                     +91 97650 06889
                   </a>
@@ -1005,41 +1005,41 @@ export default function Home({
       {/* =====================================================================
        * 11. ARCHITECTURAL FOOTER
        * =================================================================== */}
-      <footer className="bg-[#040507] text-[14px] text-slate-400">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-12 border-x border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-md bg-white text-slate-950 flex items-center justify-center font-mono font-black text-sm">
+      <footer className="bg-[#040507] text-[14px] sm:text-[15px] text-slate-400">
+        <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 py-12 border-x border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-6 pb-[max(3rem,calc(env(safe-area-inset-bottom,0px)+3rem))]">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 sm:gap-3">
+            <div className="w-7 h-7 rounded-md bg-white text-slate-950 flex items-center justify-center font-mono font-black text-sm shrink-0">
               E
             </div>
             <span className="font-bold text-white tracking-tight">
               ETHICA BY BUGSTEX TECHNOLOGIES
             </span>
-            <span className="text-slate-600">|</span>
-            <span>EU AI Act • NIST AI RMF • ISO/IEC 42001</span>
+            <span className="hidden sm:inline text-slate-600">|</span>
+            <span className="text-xs sm:text-[14px] text-slate-400">EU AI Act • NIST AI RMF • ISO/IEC 42001</span>
           </div>
-          <div className="flex flex-wrap items-center gap-6">
-            <a href="#why-ethica" className="hover:text-white transition-colors">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 text-sm">
+            <a href="#why-ethica" className="hover:text-white transition-colors py-1">
               Why Ethica
             </a>
             <a
               href="#regulatory-crosswalk"
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors py-1"
             >
               EU AI Act
             </a>
-            <a href="#sandbox" className="hover:text-white transition-colors">
+            <a href="#sandbox" className="hover:text-white transition-colors py-1">
               Sandbox
             </a>
             <a
               href="#verification"
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors py-1"
             >
               Registry
             </a>
-            <a href="#pricing" className="hover:text-white transition-colors">
+            <a href="#pricing" className="hover:text-white transition-colors py-1">
               Pricing
             </a>
-            <a href="#about" className="hover:text-white transition-colors">
+            <a href="#about" className="hover:text-white transition-colors py-1">
               About
             </a>
           </div>

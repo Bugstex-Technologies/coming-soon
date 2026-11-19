@@ -70,10 +70,10 @@ export default function FloatingDockDemo() {
     },
   ];
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-auto">
+    <div className="fixed bottom-6 right-4 sm:right-6 md:left-1/2 md:-translate-x-1/2 md:right-auto z-50 pointer-events-auto pb-[env(safe-area-inset-bottom,0px)]">
       <FloatingDock
         desktopClassName="border border-white/[0.14] bg-neutral-900/90 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
-        mobileClassName="fixed bottom-6 right-6"
+        mobileClassName=""
         items={links}
       />
     </div>
